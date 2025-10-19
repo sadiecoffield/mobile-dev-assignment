@@ -1,6 +1,6 @@
-import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 export default function CategoryButton(props) {
@@ -9,19 +9,23 @@ export default function CategoryButton(props) {
 
   // Get each category's corresponding icon
   if (category === "Feelings") {
-    icon = <Entypo name="emoji-happy" size={40} color="white" />;
+    icon = <MaterialIcons name="emoji-emotions" size={40} color="#513079ff" />;
   } else if (category === "Needs") {
     icon = (
-      <MaterialCommunityIcons name="food-fork-drink" size={40} color="white" />
+      <MaterialCommunityIcons
+        name="food-fork-drink"
+        size={40}
+        color="#916300ff"
+      />
     );
   } else if (category === "People") {
-    icon = <FontAwesome6 name="people-group" size={40} color="white" />;
+    icon = <FontAwesome6 name="people-group" size={40} color="#227864ff" />;
   } else {
     icon = (
       <MaterialCommunityIcons
         name="book-open-page-variant"
         size={40}
-        color="white"
+        color="#7e2f5eff"
       />
     );
   }
