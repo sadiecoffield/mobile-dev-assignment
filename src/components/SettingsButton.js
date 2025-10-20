@@ -1,0 +1,25 @@
+import { StyleSheet, TouchableOpacity } from "react-native";
+import StyledText from "./StyledText";
+
+export default function SettingsButton(props) {
+  const { icon, text } = props;
+
+  return (
+    <TouchableOpacity style={styles.button}>
+      {icon && <StyledText style={styles.icon}>{icon}</StyledText>}
+      <StyledText>{text}</StyledText>
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+  button: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 24,
+  },
+  icon: {
+    marginRight: 10,
+  },
+});

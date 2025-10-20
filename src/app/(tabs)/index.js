@@ -1,11 +1,12 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CategoryButton from "../../components/CategoryButton";
+import StyledText from "../../components/StyledText";
 
 export default function Tab() {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.heading}>Categories</Text>
+      <StyledText style={styles.heading}>Categories</StyledText>
       <CategoryButton category="Feelings" colour="#9b5de5"></CategoryButton>
       <CategoryButton category="Needs" colour="#f2a500ff"></CategoryButton>
       <CategoryButton category="People" colour="#3bceac"></CategoryButton>
@@ -26,6 +27,5 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     marginTop: 100,
     marginBottom: 40,
-    color: "#535840ff",
   },
 });
