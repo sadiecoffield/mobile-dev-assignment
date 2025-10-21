@@ -1,10 +1,12 @@
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useRouter } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 export default function CategoryButton(props) {
   const { category, colour } = props;
+  const router = useRouter();
   let icon = null;
 
   // Get each category's corresponding icon
@@ -31,7 +33,15 @@ export default function CategoryButton(props) {
   }
 
   return (
-    <TouchableOpacity style={[styles.categoryBtn, { backgroundColor: colour }]}>
+    <TouchableOpacity
+      style={[styles.categoryBtn, { backgroundColor: colour }]}
+      onPress={() => {
+        router.navigate({
+          pathname: "/[category]",
+          params: { categoryName: category },
+        });
+      }}
+    >
       <Text>{icon}</Text>
       <Text style={styles.categoryText}>{category}</Text>
     </TouchableOpacity>

@@ -6,6 +6,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 export const categories = {
   feelings: {
+    title: "Feelings",
     color: "#9b5de5",
     tiles: [
       {
@@ -72,6 +73,7 @@ export const categories = {
     ],
   },
   needs: {
+    title: "Needs",
     color: "#f2a500ff",
     tiles: [
       {
@@ -99,6 +101,7 @@ export const categories = {
     ],
   },
   people: {
+    title: "People",
     color: "#3bceac",
     tiles: [
       {
@@ -144,6 +147,7 @@ export const categories = {
     ],
   },
   things: {
+    title: "Things",
     color: "#f15bb5",
     tiles: [
       {
