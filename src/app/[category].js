@@ -1,11 +1,14 @@
-import { useLocalSearchParams } from "expo-router";
-import { FlatList, StyleSheet } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { categories } from "../../data/categories";
 import StyledText from "../components/StyledText";
 import Tile from "../components/Tile";
 
 export default function CategoryScreen() {
+  const router = useRouter();
+
   // Get category name from url parameters
   const { categoryName } = useLocalSearchParams();
 
@@ -26,7 +29,16 @@ export default function CategoryScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StyledText style={styles.heading}>{categoryData.title}</StyledText>
+      <View style={styles.header}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
+          <Ionicons name="arrow-back" size={40} color="#535252ff" />
+        </TouchableOpacity>
+        <StyledText style={styles.heading}>{categoryData.title}</StyledText>
+        <View style={styles.placeholder} />
+      </View>
       <FlatList
         data={categoryData.tiles}
         renderItem={({ item }) => {
@@ -46,13 +58,29 @@ const styles = StyleSheet.create({
     justifyContent: "start",
     alignItems: "center",
     backgroundColor: "white",
-    padding: 10,
+  },
+  header: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingTop: 100,
+    marginBottom: 40,
+  },
+  backButton: {
+    width: 44,
+    height: 44,
+    alignItems: "flex-start",
+    justifyContent: "center",
+  },
+  placeholder: {
+    width: 44,
+    height: 44,
   },
   heading: {
     fontSize: 36,
     fontWeight: 700,
-    marginTop: 100,
-    marginBottom: 40,
   },
   listContainer: {
     justifyContent: "flex-start",
