@@ -1,18 +1,34 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Dimensions, StyleSheet, Text, TouchableOpacity } from "react-native";
+import StyledText from "./StyledText";
 
 export default function Tile(props) {
-  const { text, icon } = props;
+  const { colour, text, icon } = props;
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={[styles.container, { backgroundColor: colour }]}>
       <Text>{icon}</Text>
-      <Text>{text}</Text>
+      <StyledText style={styles.text}>{text}</StyledText>
     </TouchableOpacity>
   );
 }
 
+const screenWidth = Dimensions.get("window").width;
+const numOfColumns = 3;
+const tileSize = (screenWidth - 60) / numOfColumns;
+
 const styles = StyleSheet.create({
   container: {
-    color: "blue",
+    width: tileSize,
+    height: tileSize,
+    margin: 5,
+    backgroundColor: "grey",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    color: "white",
+    fontWeight: 600,
+    marginTop: 8,
   },
 });
