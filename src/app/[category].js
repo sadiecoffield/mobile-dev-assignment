@@ -39,9 +39,9 @@ export default function CategoryScreen() {
             } else if (item.zone === "yellow") {
               tileColour = "#f2a500ff";
             } else if (item.zone === "blue") {
-              tileColour = "#2276ecff";
+              tileColour = "#1896f6ff";
             } else {
-              tileColour = "#f04545ff";
+              tileColour = "#ee4e4eff";
             }
           } else if (categoryName === "Needs") {
             tileColour = "#f2a500ff";

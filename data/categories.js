@@ -14,25 +14,25 @@ export const categories = {
         id: Crypto.randomUUID(),
         text: "Happy",
         zone: "green",
-        icon: <Entypo name="emoji-happy" size={40} color="#513079ff" />,
+        icon: <Entypo name="emoji-happy" size={40} color="#1c6534ff" />,
       },
       {
         id: Crypto.randomUUID(),
         text: "Calm",
         zone: "green",
-        icon: <FontAwesome6 name="face-meh" size={40} color="#513079ff" />,
+        icon: <FontAwesome6 name="face-meh" size={40} color="#1c6534ff" />,
       },
       {
         id: Crypto.randomUUID(),
         text: "Tired",
         zone: "blue",
-        icon: <FontAwesome6 name="face-tired" size={40} color="#513079ff" />,
+        icon: <FontAwesome6 name="face-tired" size={40} color="#0b4d80ff" />,
       },
       {
         id: Crypto.randomUUID(),
         text: "Sad",
         zone: "blue",
-        icon: <FontAwesome6 name="face-frown" size={40} color="#513079ff" />,
+        icon: <FontAwesome6 name="face-frown" size={40} color="#0b4d80ff" />,
       },
       {
         id: Crypto.randomUUID(),
@@ -42,7 +42,7 @@ export const categories = {
           <MaterialCommunityIcons
             name="emoticon-sick-outline"
             size={50}
-            color="#513079ff"
+            color="#0b4d80ff"
           />
         ),
       },
@@ -51,21 +51,21 @@ export const categories = {
         text: "Bored",
         zone: "blue",
         icon: (
-          <FontAwesome6 name="face-rolling-eyes" size={40} color="#513079ff" />
+          <FontAwesome6 name="face-rolling-eyes" size={40} color="#0b4d80ff" />
         ),
       },
       {
         id: Crypto.randomUUID(),
         text: "Worried",
         zone: "yellow",
-        icon: <FontAwesome6 name="face-grimace" size={40} color="#513079ff" />,
+        icon: <FontAwesome6 name="face-grimace" size={40} color="#916300ff" />,
       },
       {
         id: Crypto.randomUUID(),
         text: "Excited",
         zone: "yellow",
         icon: (
-          <FontAwesome6 name="face-grin-squint" size={40} color="#513079ff" />
+          <FontAwesome6 name="face-grin-squint" size={40} color="#916300ff" />
         ),
       },
       {
@@ -73,20 +73,20 @@ export const categories = {
         text: "Silly",
         zone: "yellow",
         icon: (
-          <FontAwesome6 name="face-grin-tongue" size={40} color="#513079ff" />
+          <FontAwesome6 name="face-grin-tongue" size={40} color="#916300ff" />
         ),
       },
       {
         id: Crypto.randomUUID(),
         text: "Angry",
         zone: "red",
-        icon: <FontAwesome6 name="face-angry" size={40} color="#513079ff" />,
+        icon: <FontAwesome6 name="face-angry" size={40} color="#882e2eff" />,
       },
       {
         id: Crypto.randomUUID(),
         text: "Panic",
         zone: "red",
-        icon: <FontAwesome6 name="face-tired" size={40} color="#513079ff" />,
+        icon: <FontAwesome6 name="face-tired" size={40} color="#882e2eff" />,
       },
     ],
   },
