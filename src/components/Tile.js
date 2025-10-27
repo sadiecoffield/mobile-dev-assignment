@@ -7,7 +7,9 @@ export default function Tile(props) {
   return (
     <TouchableOpacity style={[styles.container, { backgroundColor: colour }]}>
       <Text>{icon}</Text>
-      <StyledText style={styles.text}>{text}</StyledText>
+      <StyledText style={styles.text} adjustsFontSizeToFit numberOfLines={1}>
+        {text}
+      </StyledText>
     </TouchableOpacity>
   );
 }
@@ -21,6 +23,7 @@ const styles = StyleSheet.create({
     width: tileSize,
     height: tileSize,
     margin: 5,
+    padding: 8,
     backgroundColor: "grey",
     borderRadius: 10,
     justifyContent: "center",
