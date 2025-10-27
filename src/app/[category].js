@@ -15,18 +15,6 @@ export default function CategoryScreen() {
   // Get the data for that category from 'categories'
   const categoryData = categories[categoryName?.toLowerCase()] || {};
 
-  let tileColour = "";
-
-  if (categoryName === "Feelings") {
-    tileColour = "#9b5de5";
-  } else if (categoryName === "Needs") {
-    tileColour = "#f2a500ff";
-  } else if (categoryName === "People") {
-    tileColour = "#3bceac";
-  } else {
-    tileColour = "#f15bb5";
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -42,6 +30,27 @@ export default function CategoryScreen() {
       <FlatList
         data={categoryData.tiles}
         renderItem={({ item }) => {
+          let tileColour = "";
+
+          if (categoryName === "Feelings") {
+            // Set tile colour to the corresponding regulation zone colour
+            if (item.zone === "green") {
+              tileColour = "#3ccc6cff";
+            } else if (item.zone === "yellow") {
+              tileColour = "#f2a500ff";
+            } else if (item.zone === "blue") {
+              tileColour = "#2276ecff";
+            } else {
+              tileColour = "#f04545ff";
+            }
+          } else if (categoryName === "Needs") {
+            tileColour = "#f2a500ff";
+          } else if (categoryName === "People") {
+            tileColour = "#3bceac";
+          } else {
+            tileColour = "#f15bb5";
+          }
+
           return <Tile colour={tileColour} text={item.text} icon={item.icon} />;
         }}
         horizontal={false}
