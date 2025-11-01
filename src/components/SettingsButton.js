@@ -2,10 +2,10 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import StyledText from "./StyledText";
 
 export default function SettingsButton(props) {
-  const { icon, text } = props;
+  const { icon, text, onPress } = props;
 
   return (
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity onPress={onPress} style={styles.button}>
       {icon && <StyledText style={styles.icon}>{icon}</StyledText>}
       <StyledText>{text}</StyledText>
     </TouchableOpacity>

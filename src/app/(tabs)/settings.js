@@ -1,10 +1,13 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRouter } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SettingsButton from "../../components/SettingsButton";
 import StyledText from "../../components/StyledText";
 
 export default function Tab() {
+  const router = useRouter();
+
   return (
     <SafeAreaView style={styles.container}>
       <StyledText style={styles.heading}>Settings</StyledText>
@@ -13,6 +16,7 @@ export default function Tab() {
         <SettingsButton
           icon={<Ionicons name="add-circle" size={32} color="#52b69a" />}
           text="Add new tile"
+          onPress={() => router.navigate("/addTile")}
         />
         <SettingsButton
           icon={<Ionicons name="remove-circle" size={32} color="#f15bb5" />}
