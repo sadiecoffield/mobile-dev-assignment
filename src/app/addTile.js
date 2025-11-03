@@ -38,6 +38,8 @@ export default function AddTileScreen() {
     }
 
     // return to settings page, add tile to category etc.
+
+    router.back(); // Return to settings page
   }
 
   return (
