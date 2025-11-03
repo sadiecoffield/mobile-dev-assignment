@@ -28,7 +28,7 @@ export default function Tab() {
           text="Add new profile"
         />
         <TouchableOpacity style={styles.profileButton}>
-          <StyledText>All</StyledText>
+          <StyledText>Default</StyledText>
         </TouchableOpacity>
         <TouchableOpacity style={styles.profileButton}>
           <StyledText>Sam</StyledText>
@@ -52,21 +52,18 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     marginTop: 100,
   },
-  subheading: {
-    fontWeight: 600,
-    marginTop: 40,
-  },
   optionsContainer: {
     display: "flex",
     alignSelf: "stretch",
     alignItems: "flex-start",
     paddingHorizontal: 30,
+    marginTop: 40,
   },
   tileSettings: {
     width: "100%",
     borderColor: "#535252ff",
     borderBottomWidth: 1,
-    paddingBottom: 20,
+    paddingBottom: 24,
   },
   profileButton: {
     paddingLeft: 15,
