@@ -2,7 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SettingsButton from "../../components/SettingsButton";
+import ButtonWithIcon from "../../components/ButtonWithIcon";
 import StyledText from "../../components/StyledText";
 
 export default function Tab() {
@@ -13,20 +13,20 @@ export default function Tab() {
       <StyledText style={styles.heading}>Settings</StyledText>
       <View style={styles.optionsContainer}>
         <StyledText style={styles.subheading}>Manage Tiles</StyledText>
-        <SettingsButton
+        <ButtonWithIcon
           icon={<Ionicons name="add-circle" size={32} color="#52b69a" />}
           text="Add new tile"
           onPress={() => router.navigate("/addTile")}
         />
-        <SettingsButton
+        <ButtonWithIcon
           icon={<Ionicons name="remove-circle" size={32} color="#f15bb5" />}
           text="Remove tile"
         />
         <StyledText style={styles.subheading}>Manage Profiles</StyledText>
-        <SettingsButton text="Profile 1" />
-        <SettingsButton text="Profile 2" />
-        <SettingsButton text="Profile 3" />
-        <SettingsButton
+        <ButtonWithIcon text="Profile 1" />
+        <ButtonWithIcon text="Profile 2" />
+        <ButtonWithIcon text="Profile 3" />
+        <ButtonWithIcon
           icon={<Ionicons name="person-add" size={32} color="#52b69a" />}
           text="Add new profile"
         />

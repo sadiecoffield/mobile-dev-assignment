@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import StyledText from "./StyledText";
 
-export default function SettingsButton(props) {
+export default function ButtonWithIcon(props) {
   const { icon, text, onPress } = props;
 
   return (
