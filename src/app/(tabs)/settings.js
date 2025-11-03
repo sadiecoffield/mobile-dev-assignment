@@ -1,6 +1,6 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonWithIcon from "../../components/ButtonWithIcon";
 import StyledText from "../../components/StyledText";
@@ -12,24 +12,30 @@ export default function Tab() {
     <SafeAreaView style={styles.container}>
       <StyledText style={styles.heading}>Settings</StyledText>
       <View style={styles.optionsContainer}>
-        <StyledText style={styles.subheading}>Manage Tiles</StyledText>
+        <View style={styles.tileSettings}>
+          <ButtonWithIcon
+            icon={<Ionicons name="add-circle" size={32} color="#52b69a" />}
+            text="Add new tile"
+            onPress={() => router.navigate("/addTile")}
+          />
+          <ButtonWithIcon
+            icon={<Ionicons name="remove-circle" size={32} color="#9b5de5" />}
+            text="Remove tile"
+          />
+        </View>
         <ButtonWithIcon
-          icon={<Ionicons name="add-circle" size={32} color="#52b69a" />}
-          text="Add new tile"
-          onPress={() => router.navigate("/addTile")}
-        />
-        <ButtonWithIcon
-          icon={<Ionicons name="remove-circle" size={32} color="#f15bb5" />}
-          text="Remove tile"
-        />
-        <StyledText style={styles.subheading}>Manage Profiles</StyledText>
-        <ButtonWithIcon text="Profile 1" />
-        <ButtonWithIcon text="Profile 2" />
-        <ButtonWithIcon text="Profile 3" />
-        <ButtonWithIcon
-          icon={<Ionicons name="person-add" size={32} color="#52b69a" />}
+          icon={<Ionicons name="person-add" size={32} color="#9b5de5" />}
           text="Add new profile"
         />
+        <TouchableOpacity style={styles.profileButton}>
+          <StyledText>All</StyledText>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.profileButton}>
+          <StyledText>Sam</StyledText>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.profileButton}>
+          <StyledText>Alex</StyledText>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -55,5 +61,15 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     alignItems: "flex-start",
     paddingHorizontal: 30,
+  },
+  tileSettings: {
+    width: "100%",
+    borderColor: "#535252ff",
+    borderBottomWidth: 1,
+    paddingBottom: 20,
+  },
+  profileButton: {
+    paddingLeft: 15,
+    marginTop: 24,
   },
 });
