@@ -19,6 +19,7 @@ export default function AddTileScreen() {
   const router = useRouter();
   const [text, onChangeText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [attemptedSubmit, setAttemptedSubmit] = useState(false);
 
   const categories = [
     { label: "Feelings", value: "feelings" },
@@ -26,6 +27,18 @@ export default function AddTileScreen() {
     { label: "People", value: "people" },
     { label: "Things", value: "things" },
   ];
+
+  function handleAdd() {
+    setAttemptedSubmit(true);
+
+    // Alert user if input fields aren't filled
+    if (!text.trim() || !selectedCategory) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    // return to settings page, add tile to category etc.
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -47,9 +60,14 @@ export default function AddTileScreen() {
           />
           <StyledText style={styles.subheading}>Caption</StyledText>
           <TextInput
-            style={styles.input}
+            style={[
+              styles.input,
+              !text.trim() && attemptedSubmit ? styles.errorInput : null,
+            ]}
             onChangeText={onChangeText}
             value={text}
+            maxLength={15}
+            placeholder="E.g. Specific book"
           />
           <StyledText style={styles.subheading}>Select Category</StyledText>
           <Dropdown
@@ -59,14 +77,20 @@ export default function AddTileScreen() {
             placeholder="Categories"
             value={selectedCategory}
             onChange={(item) => setSelectedCategory(item.value)}
-            style={styles.dropdown}
+            style={[
+              styles.dropdown,
+              !selectedCategory && attemptedSubmit ? styles.errorInput : null,
+            ]}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
             itemTextStyle={styles.optionTextStyle}
           />
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity style={styles.addButton}>
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => handleAdd()}
+          >
             <Text style={styles.addButtonText}>Add</Text>
           </TouchableOpacity>
         </View>
@@ -117,13 +141,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
   },
   input: {
-    backgroundColor: "#efefefff",
+    backgroundColor: "#ffffff",
     width: "100%",
     borderRadius: 8,
     fontSize: 24,
     padding: 10,
     marginTop: 10,
     color: "#535252ff",
+    boxShadow: "0px 2px 6px 2px #dcdcdcff",
   },
   dropdown: {
     width: "100%",
@@ -131,10 +156,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginTop: 10,
-    backgroundColor: "#efefefff",
+    backgroundColor: "#ffffff",
+    boxShadow: "0px 2px 6px 2px #dcdcdcff",
   },
   placeholderStyle: {
-    color: "#888",
+    color: "#c5c5c5ff",
     fontSize: 24,
   },
   selectedTextStyle: {
@@ -152,6 +178,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+
+    boxShadow: "2px 4px 4px #623b91ff",
   },
   addButtonText: {
     fontSize: 24,
@@ -162,5 +190,8 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 24,
     alignItems: "center",
+  },
+  errorInput: {
+    boxShadow: "0px 0px 4px 2px #ee4e4eff",
   },
 });
