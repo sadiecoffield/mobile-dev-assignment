@@ -4,21 +4,29 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import StyledText from "./StyledText";
 
 export default function ProfileButton(props) {
-  const { profileName } = props;
+  const { profileName, currentProfile, onSelect } = props;
+
+  // Determine if this profile button is currently selected
+  const isSelected = profileName === currentProfile;
 
   return (
     <View style={styles.button}>
-      <TouchableOpacity style={styles.profileName}>
+      <TouchableOpacity
+        style={styles.profileName}
+        onPress={() => onSelect(profileName)}
+      >
         <FontAwesome
           style={styles.icon}
           name="circle"
-          size={18}
-          color="#f2a500ff"
+          size={20}
+          color={isSelected ? "#f2a500ff" : "#535252ff"}
         />
-        <StyledText>{profileName}</StyledText>
+        <StyledText style={isSelected ? { fontWeight: 600 } : ""}>
+          {profileName}
+        </StyledText>
       </TouchableOpacity>
       <TouchableOpacity>
-        <Ionicons name="trash" size={32} color="#f15bb5" />
+        <Ionicons name="trash" size={24} color="#f15bb5" />
       </TouchableOpacity>
     </View>
   );
@@ -29,7 +37,6 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 15,
     marginTop: 24,
-    display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -38,7 +45,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   profileName: {
-    display: "flex",
     flexDirection: "row",
     alignItems: "center",
   },
