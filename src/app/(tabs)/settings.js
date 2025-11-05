@@ -1,8 +1,9 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonWithIcon from "../../components/ButtonWithIcon";
+import ProfileButton from "../../components/ProfileButton";
 import StyledText from "../../components/StyledText";
 
 export default function Tab() {
@@ -27,15 +28,9 @@ export default function Tab() {
           icon={<Ionicons name="person-add" size={32} color="#9b5de5" />}
           text="Add new profile"
         />
-        <TouchableOpacity style={styles.profileButton}>
-          <StyledText>Default</StyledText>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.profileButton}>
-          <StyledText>Sam</StyledText>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.profileButton}>
-          <StyledText>Alex</StyledText>
-        </TouchableOpacity>
+        <ProfileButton profileName="Default"></ProfileButton>
+        <ProfileButton profileName="Sam"></ProfileButton>
+        <ProfileButton profileName="Alex"></ProfileButton>
       </View>
     </SafeAreaView>
   );
