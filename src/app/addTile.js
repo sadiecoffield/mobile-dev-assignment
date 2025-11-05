@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-
     boxShadow: "2px 4px 4px #623b91ff",
   },
   addButtonText: {

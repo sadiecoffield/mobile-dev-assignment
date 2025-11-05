@@ -2,10 +2,15 @@ import { Dimensions, StyleSheet, Text, TouchableOpacity } from "react-native";
 import StyledText from "./StyledText";
 
 export default function Tile(props) {
-  const { colour, text, icon } = props;
+  const { colour, shadowColour, text, icon } = props;
 
   return (
-    <TouchableOpacity style={[styles.container, { backgroundColor: colour }]}>
+    <TouchableOpacity
+      style={[
+        styles.container,
+        { backgroundColor: colour, boxShadow: `2px 4px 4px ${shadowColour}` },
+      ]}
+    >
       <Text>{icon}</Text>
       <StyledText style={styles.text} adjustsFontSizeToFit numberOfLines={1}>
         {text}

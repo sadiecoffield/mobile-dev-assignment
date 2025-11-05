@@ -8,10 +8,12 @@ export default function CategoryButton(props) {
   const { category, colour } = props;
   const router = useRouter();
   let icon = null;
+  let shadowColour = "";
 
-  // Get each category's corresponding icon
+  // Get each category's corresponding icon and shadow colour
   if (category === "Feelings") {
     icon = <MaterialIcons name="emoji-emotions" size={40} color="#513079ff" />;
+    shadowColour = "#513079ff";
   } else if (category === "Needs") {
     icon = (
       <MaterialCommunityIcons
@@ -20,8 +22,10 @@ export default function CategoryButton(props) {
         color="#916300ff"
       />
     );
+    shadowColour = "#916300ff";
   } else if (category === "People") {
     icon = <FontAwesome6 name="people-group" size={40} color="#227864ff" />;
+    shadowColour = "#227864ff";
   } else {
     icon = (
       <MaterialCommunityIcons
@@ -30,11 +34,15 @@ export default function CategoryButton(props) {
         color="#7e2f5eff"
       />
     );
+    shadowColour = "#7e2f5eff";
   }
 
   return (
     <TouchableOpacity
-      style={[styles.categoryBtn, { backgroundColor: colour }]}
+      style={[
+        styles.categoryBtn,
+        { backgroundColor: colour, boxShadow: `2px 4px 4px ${shadowColour}` },
+      ]}
       onPress={() => {
         router.navigate({
           pathname: "/[category]",
