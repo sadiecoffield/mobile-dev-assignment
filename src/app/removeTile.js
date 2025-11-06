@@ -1,11 +1,21 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StyledText from "../components/StyledText";
 
 export default function RemoveTileScreen() {
   const router = useRouter();
+  const [selectedCategory, setSelectedCategory] = useState("Feelings");
+
+  const categories = [
+    { label: "Feelings", value: "feelings" },
+    { label: "Needs", value: "needs" },
+    { label: "People", value: "people" },
+    { label: "Things", value: "things" },
+  ];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -19,6 +29,19 @@ export default function RemoveTileScreen() {
         <StyledText style={styles.heading}>Remove Tile</StyledText>
         <View style={styles.placeholder} />
       </View>
+      <StyledText style={styles.subheading}>Select Category</StyledText>
+      <Dropdown
+        data={categories}
+        labelField="label"
+        valueField="value"
+        placeholder={selectedCategory}
+        value={selectedCategory}
+        onChange={(item) => setSelectedCategory(item.value)}
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        itemTextStyle={styles.optionTextStyle}
+      />
     </SafeAreaView>
   );
 }
@@ -27,15 +50,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "start",
-    alignItems: "center",
+    alignItems: "flex-start",
     backgroundColor: "white",
+    paddingHorizontal: 20,
   },
   header: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 20,
     paddingTop: 100,
     marginBottom: 40,
   },
@@ -52,5 +75,18 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 36,
     fontWeight: 700,
+  },
+  subheading: {
+    fontWeight: 600,
+    marginTop: 24,
+  },
+  dropdown: {
+    width: "100%",
+    height: 50,
+    borderRadius: 8,
+    padding: 10,
+    marginTop: 10,
+    backgroundColor: "#ffffff",
+    boxShadow: "0px 2px 6px 2px #dcdcdcff",
   },
 });
