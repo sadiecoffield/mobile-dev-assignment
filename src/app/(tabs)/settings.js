@@ -39,6 +39,7 @@ export default function Tab() {
           <ButtonWithIcon
             icon={<Ionicons name="remove-circle" size={32} color="#9b5de5" />}
             text="Remove tile"
+            onPress={() => router.navigate("/removeTile")}
           />
         </View>
         <ButtonWithIcon

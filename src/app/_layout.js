@@ -8,6 +8,7 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="[category]" options={{ headerShown: false }} />
         <Stack.Screen name="addTile" options={{ headerShown: false }} />
+        <Stack.Screen name="removeTile" options={{ headerShown: false }} />
       </Stack>
     </PaperProvider>
   );
