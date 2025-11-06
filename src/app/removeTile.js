@@ -5,6 +5,7 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StyledText from "../components/StyledText";
+import TileList from "../components/TileList";
 
 export default function RemoveTileScreen() {
   const router = useRouter();
@@ -42,6 +43,7 @@ export default function RemoveTileScreen() {
         selectedTextStyle={styles.selectedTextStyle}
         itemTextStyle={styles.optionTextStyle}
       />
+      <TileList categoryName={selectedCategory} />
     </SafeAreaView>
   );
 }
@@ -50,15 +52,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "start",
-    alignItems: "flex-start",
+    alignItems: "center",
     backgroundColor: "white",
-    paddingHorizontal: 20,
   },
   header: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingHorizontal: 20,
     paddingTop: 100,
     marginBottom: 40,
   },
@@ -86,7 +88,20 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginTop: 10,
+    marginBottom: 24,
     backgroundColor: "#ffffff",
     boxShadow: "0px 2px 6px 2px #dcdcdcff",
+  },
+  placeholderStyle: {
+    color: "#c5c5c5ff",
+    fontSize: 24,
+  },
+  selectedTextStyle: {
+    color: "#535252ff",
+    fontSize: 24,
+  },
+  optionTextStyle: {
+    color: "#535252ff",
+    fontSize: 18,
   },
 });
