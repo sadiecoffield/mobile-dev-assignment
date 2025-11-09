@@ -30,19 +30,21 @@ export default function RemoveTileScreen() {
         <StyledText style={styles.heading}>Remove Tile</StyledText>
         <View style={styles.placeholder} />
       </View>
-      <StyledText style={styles.subheading}>Select Category</StyledText>
-      <Dropdown
-        data={categories}
-        labelField="label"
-        valueField="value"
-        placeholder={selectedCategory}
-        value={selectedCategory}
-        onChange={(item) => setSelectedCategory(item.value)}
-        style={styles.dropdown}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        itemTextStyle={styles.optionTextStyle}
-      />
+      <View style={styles.dropdownContainer}>
+        <StyledText style={styles.subheading}>Select Category</StyledText>
+        <Dropdown
+          data={categories}
+          labelField="label"
+          valueField="value"
+          placeholder={selectedCategory}
+          value={selectedCategory}
+          onChange={(item) => setSelectedCategory(item.value)}
+          style={styles.dropdown}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          itemTextStyle={styles.optionTextStyle}
+        />
+      </View>
       <TileList categoryName={selectedCategory} />
     </SafeAreaView>
   );
@@ -81,6 +83,10 @@ const styles = StyleSheet.create({
   subheading: {
     fontWeight: 600,
     marginTop: 24,
+  },
+  dropdownContainer: {
+    width: "100%",
+    paddingHorizontal: 20,
   },
   dropdown: {
     width: "100%",
