@@ -12,10 +12,10 @@ export default function RemoveTileScreen() {
   const [selectedCategory, setSelectedCategory] = useState("Feelings");
 
   const categories = [
-    { label: "Feelings", value: "feelings" },
-    { label: "Needs", value: "needs" },
-    { label: "People", value: "people" },
-    { label: "Things", value: "things" },
+    { label: "Feelings", value: "Feelings" },
+    { label: "Needs", value: "Needs" },
+    { label: "People", value: "People" },
+    { label: "Things", value: "Things" },
   ];
 
   return (
@@ -45,7 +45,7 @@ export default function RemoveTileScreen() {
           itemTextStyle={styles.optionTextStyle}
         />
       </View>
-      <TileList categoryName={selectedCategory} />
+      <TileList categoryName={selectedCategory} removeTile={true} />
     </SafeAreaView>
   );
 }

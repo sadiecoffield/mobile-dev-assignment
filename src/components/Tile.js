@@ -2,12 +2,14 @@ import { Dimensions, StyleSheet, Text, TouchableOpacity } from "react-native";
 import StyledText from "./StyledText";
 
 export default function Tile(props) {
-  const { colour, shadowColour, text, icon } = props;
+  const { onPress, style, colour, shadowColour, text, icon } = props;
 
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={[
         styles.container,
+        style,
         { backgroundColor: colour, boxShadow: `2px 4px 4px ${shadowColour}` },
       ]}
     >

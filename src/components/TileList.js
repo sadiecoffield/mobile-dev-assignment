@@ -1,12 +1,30 @@
+import { useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { categories } from "../../data/categories";
 import Tile from "./Tile";
 
 export default function TileList(props) {
-  const { categoryName } = props;
+  const { categoryName, removeTile } = props;
+  const [selectedTiles, setSelectedTiles] = useState([]);
 
   // Get the data for that category from 'categories'
   const categoryData = categories[categoryName?.toLowerCase()] || {};
+
+  // Toggle selected tiles when pressed
+  const toggleTile = (text) => {
+    if (!removeTile) return;
+
+    setSelectedTiles((prev) => {
+      // If tile is already in selected array
+      if (prev.includes(text)) {
+        // Remove tile from selection array and return new array
+        return prev.filter((t) => t !== text);
+      } else {
+        // Add tile to selection
+        return [...prev, text];
+      }
+    });
+  };
 
   return (
     <FlatList
@@ -41,8 +59,13 @@ export default function TileList(props) {
           shadowColour = "#7e2f5eff";
         }
 
+        // Is this tile in the selected tiles array
+        const isSelected = selectedTiles.includes(item.text);
+
         return (
           <Tile
+            onPress={() => toggleTile(item.text)}
+            style={removeTile && isSelected ? styles.tileToRemove : null}
             colour={tileColour}
             shadowColour={shadowColour}
             text={item.text}
@@ -61,5 +84,10 @@ const styles = StyleSheet.create({
   listContainer: {
     justifyContent: "flex-start",
     alignItems: "flex-start",
+  },
+  tileToRemove: {
+    borderWidth: 3,
+    borderColor: "#535252ff",
+    opacity: 0.5,
   },
 });
