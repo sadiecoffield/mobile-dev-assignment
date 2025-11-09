@@ -19,7 +19,7 @@ export default function ProfileButton(props) {
           style={styles.icon}
           name="circle"
           size={20}
-          color={isSelected ? "#f2a500ff" : "#535252ff"}
+          color={isSelected ? "#f2a500ff" : "#d4d4d4ff"}
         />
         <StyledText style={isSelected ? { fontWeight: 600 } : ""}>
           {profileName}
