@@ -28,10 +28,11 @@ export default function RemoveTileScreen() {
           <Ionicons name="arrow-back" size={40} color="#535252ff" />
         </TouchableOpacity>
         <StyledText style={styles.heading}>Remove Tile</StyledText>
-        <View style={styles.placeholder} />
+        <TouchableOpacity>
+          <Ionicons name="trash" size={40} color="#ee4e4eff" />
+        </TouchableOpacity>
       </View>
       <View style={styles.dropdownContainer}>
-        <StyledText style={styles.subheading}>Select Category</StyledText>
         <Dropdown
           data={categories}
           labelField="label"
