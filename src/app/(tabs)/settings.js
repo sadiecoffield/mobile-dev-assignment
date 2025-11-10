@@ -1,7 +1,15 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import {
+  FlatList,
+  Modal,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonWithIcon from "../../components/ButtonWithIcon";
 import ProfileButton from "../../components/ProfileButton";
@@ -11,6 +19,8 @@ export default function Tab() {
   const router = useRouter();
 
   const [currentProfile, setCurrentProfile] = useState("Default");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [text, onChangeText] = useState("");
 
   const profiles = [
     "Default",
@@ -28,6 +38,36 @@ export default function Tab() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalContainer}>
+            <View style={styles.inputContainer}>
+              <StyledText style={styles.subheading}>
+                Enter Profile Name
+              </StyledText>
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeText}
+                value={text}
+                maxLength={15}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={styles.addButton}
+            >
+              <Text style={styles.addButtonText}>Add</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
       <StyledText style={styles.heading}>Settings</StyledText>
       <View style={styles.optionsContainer}>
         <View style={styles.tileSettings}>
@@ -43,6 +83,7 @@ export default function Tab() {
           />
         </View>
         <ButtonWithIcon
+          onPress={() => setModalVisible(true)}
           icon={<Ionicons name="person-add" size={32} color="#9b5de5" />}
           text="Add new profile"
         />
@@ -92,5 +133,51 @@ const styles = StyleSheet.create({
   profileButton: {
     paddingLeft: 15,
     marginTop: 24,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContainer: {
+    width: "85%",
+    backgroundColor: "#fbfbfbff",
+    boxShadow: "0px 2px 6px 2px #dcdcdcff",
+    borderRadius: 8,
+    alignItems: "center",
+    textAlign: "left",
+    padding: 35,
+  },
+  inputContainer: {
+    width: "100%",
+    alignItems: "flex-start",
+  },
+  input: {
+    backgroundColor: "#ffffff",
+    width: "100%",
+    borderRadius: 8,
+    fontSize: 24,
+    padding: 10,
+    marginTop: 10,
+    color: "#535252ff",
+    boxShadow: "0px 2px 6px 2px #dcdcdcff",
+  },
+  addButton: {
+    width: 128,
+    backgroundColor: "#9b5de5",
+    padding: 10,
+    marginTop: 40,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    boxShadow: "2px 4px 4px #623b91ff",
+  },
+  addButtonText: {
+    fontSize: 24,
+    color: "white",
+    fontWeight: 600,
+  },
+  subheading: {
+    fontWeight: 600,
   },
 });
