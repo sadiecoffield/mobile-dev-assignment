@@ -25,9 +25,14 @@ export default function ProfileButton(props) {
           {profileName}
         </StyledText>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Ionicons name="trash" size={24} color="#f15bb5" />
-      </TouchableOpacity>
+      {
+        // Don't add delete button to "Default" profile
+        profileName !== "Default" && (
+          <TouchableOpacity>
+            <Ionicons name="trash" size={24} color="#f15bb5" />
+          </TouchableOpacity>
+        )
+      }
     </View>
   );
 }
