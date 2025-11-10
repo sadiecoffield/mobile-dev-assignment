@@ -57,9 +57,6 @@ export default function TileList(props) {
           shadowColour = "#7e2f5eff";
         }
 
-        // Is this tile in the selected tiles array
-        const isSelected = selectedTiles.includes(item.text);
-
         return (
           <Tile
             onPress={() => toggleTile(item.text)}
