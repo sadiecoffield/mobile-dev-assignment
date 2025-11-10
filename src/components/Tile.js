@@ -21,6 +21,7 @@ export default function Tile(props) {
   );
 }
 
+// Calculate tile spacing depending on screen size
 const screenWidth = Dimensions.get("window").width;
 const numOfColumns = 3;
 const tileSize = (screenWidth - 60) / numOfColumns;

@@ -1,5 +1,6 @@
 import { FlatList, StyleSheet } from "react-native";
 import { categories } from "../../data/categories";
+import { speak } from "../api/text-to-speech";
 import Tile from "./Tile";
 
 export default function TileList(props) {
@@ -59,7 +60,10 @@ export default function TileList(props) {
 
         return (
           <Tile
-            onPress={() => toggleTile(item.text)}
+            onPress={
+              // Pass correct onPress function
+              removeTile ? () => toggleTile(item.text) : () => speak(item.text)
+            }
             style={
               selectedTiles.includes(item.text) && removeTile
                 ? styles.tileToRemove

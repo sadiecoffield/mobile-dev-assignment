@@ -27,7 +27,12 @@ export default function CategoryScreen() {
         <StyledText style={styles.heading}>{categoryData.title}</StyledText>
         <View style={styles.placeholder} />
       </View>
-      <TileList categoryName={categoryName} />
+      <TileList
+        categoryName={categoryName}
+        removeTile={false}
+        selectedTiles={[]}
+        setSelectedTiles={[]}
+      />
     </SafeAreaView>
   );
 }
