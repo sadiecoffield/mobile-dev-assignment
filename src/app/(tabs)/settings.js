@@ -167,8 +167,8 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     width: "85%",
-    backgroundColor: "#fbfbfbff",
-    boxShadow: "0px 2px 6px 2px #dcdcdcff",
+    backgroundColor: "#ffffff",
+    boxShadow: "0px 2px 6px 2px #6f6f6fff",
     borderRadius: 10,
     alignItems: "center",
     textAlign: "left",
