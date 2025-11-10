@@ -2,6 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   FlatList,
   KeyboardAvoidingView,
   Modal,
@@ -32,7 +33,9 @@ export default function Tab() {
 
     // Alert user if input field isn't filled
     if (!text.trim()) {
-      alert("Please fill in all fields");
+      Alert.alert("No Name Provided", "Enter a name for the profile", [
+        { text: "OK" },
+      ]);
       return;
     }
 

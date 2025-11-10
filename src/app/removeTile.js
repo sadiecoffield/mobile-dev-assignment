@@ -25,12 +25,7 @@ export default function RemoveTileScreen() {
       Alert.alert(
         "No tiles selected",
         "Select the tiles you would like to delete",
-        [
-          {
-            text: "OK",
-            onPress: () => console.log("OK Pressed"),
-          },
-        ]
+        [{ text: "OK" }]
       );
       return;
     }
@@ -44,7 +39,6 @@ export default function RemoveTileScreen() {
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel pressed"),
           style: "cancel",
         },
         {

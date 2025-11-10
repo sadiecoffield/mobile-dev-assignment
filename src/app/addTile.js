@@ -2,6 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   Keyboard,
   StyleSheet,
   Text,
@@ -33,7 +34,11 @@ export default function AddTileScreen() {
 
     // Alert user if input fields aren't filled
     if (!text.trim() || !selectedCategory) {
-      alert("Please fill in all fields");
+      Alert.alert(
+        "Input Field Empty",
+        "Enter a caption and select a category for the tile",
+        [{ text: "OK" }]
+      );
       return;
     }
 
