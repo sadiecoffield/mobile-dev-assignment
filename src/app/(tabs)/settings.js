@@ -3,7 +3,10 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   FlatList,
+  KeyboardAvoidingView,
   Modal,
+  Platform,
+  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -22,20 +25,7 @@ export default function Tab() {
   const [modalVisible, setModalVisible] = useState(false);
   const [text, onChangeText] = useState("");
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
-
-  const profiles = [
-    "Default",
-    "Sam",
-    "Alex",
-    "Sophie",
-    "John",
-    "Katie",
-    "James",
-    "Lewis",
-    "Amy",
-    "Olivia",
-    "Lauren",
-  ];
+  const [profiles, setProfiles] = useState(["Default"]);
 
   function handleAdd() {
     setAttemptedSubmit(true);
@@ -46,45 +36,58 @@ export default function Tab() {
       return;
     }
 
-    // return to settings page, add profile to list etc.
+    // Add new profile to array
+    setProfiles((prev) => [...prev, text]);
 
-    setModalVisible(false); // Return to settings page
+    onChangeText(""); // Clear input field
+    setAttemptedSubmit(false); // Stop error styles when modal next loads
+    setModalVisible(false);
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalContainer}>
-            <View style={styles.inputContainer}>
-              <StyledText style={styles.subheading}>
-                Enter Profile Name
-              </StyledText>
-              <TextInput
-                style={[
-                  styles.input,
-                  !text.trim() && attemptedSubmit ? styles.errorInput : null,
-                ]}
-                onChangeText={onChangeText}
-                value={text}
-                maxLength={15}
-              />
-            </View>
-            <TouchableOpacity
-              onPress={() => handleAdd()}
-              style={styles.addButton}
-            >
-              <Text style={styles.addButtonText}>Add</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <Pressable
+          style={styles.overlay}
+          onPress={() => setModalVisible(false)}
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={{ width: "100%", alignItems: "center" }}
+          >
+            <Pressable style={styles.modalContainer} onPress={() => {}}>
+              <View style={styles.inputContainer}>
+                <StyledText style={styles.subheading}>
+                  Enter Profile Name
+                </StyledText>
+                <TextInput
+                  style={[
+                    styles.input,
+                    !text.trim() && attemptedSubmit ? styles.errorInput : null,
+                  ]}
+                  onChangeText={onChangeText}
+                  value={text}
+                  maxLength={15}
+                  autoCorrect={false}
+                  autoFocus={true}
+                />
+              </View>
+              <TouchableOpacity
+                onPress={() => handleAdd()}
+                style={styles.addButton}
+              >
+                <Text style={styles.addButtonText}>Add</Text>
+              </TouchableOpacity>
+            </Pressable>
+          </KeyboardAvoidingView>
+        </Pressable>
       </Modal>
       <StyledText style={styles.heading}>Settings</StyledText>
       <View style={styles.optionsContainer}>
@@ -110,7 +113,6 @@ export default function Tab() {
           renderItem={({ item }) => {
             return (
               <ProfileButton
-                key={item}
                 profileName={item}
                 currentProfile={currentProfile}
                 onSelect={setCurrentProfile}
@@ -154,6 +156,12 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
+    alignItems: "center",
+    marginTop: 250,
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.4)",
     justifyContent: "center",
     alignItems: "center",
   },
