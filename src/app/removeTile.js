@@ -1,7 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StyledText from "../components/StyledText";
@@ -10,6 +10,7 @@ import TileList from "../components/TileList";
 export default function RemoveTileScreen() {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("Feelings");
+  const [selectedTiles, setSelectedTiles] = useState([]);
 
   const categories = [
     { label: "Feelings", value: "Feelings" },
@@ -17,6 +18,42 @@ export default function RemoveTileScreen() {
     { label: "People", value: "People" },
     { label: "Things", value: "Things" },
   ];
+
+  function handleRemoveTile() {
+    // If no tiles selected, alert user to select tiles
+    if (selectedTiles.length === 0) {
+      Alert.alert(
+        "No tiles selected",
+        "Select the tiles you would like to delete",
+        [
+          {
+            text: "OK",
+            onPress: () => console.log("OK Pressed"),
+          },
+        ]
+      );
+      return;
+    }
+
+    // If tiles are selected, get user confirmation
+    Alert.alert(
+      `Delete ${selectedTiles.length} tile${
+        selectedTiles.length !== 1 ? "s" : ""
+      }`,
+      "Are you sure?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel pressed"),
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => console.log("OK Pressed"), // REMOVE SELECTED TILES FROM TILELIST
+        },
+      ]
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -28,7 +65,7 @@ export default function RemoveTileScreen() {
           <Ionicons name="arrow-back" size={40} color="#535252ff" />
         </TouchableOpacity>
         <StyledText style={styles.heading}>Remove Tile</StyledText>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => handleRemoveTile()}>
           <Ionicons name="trash" size={40} color="#ee4e4eff" />
         </TouchableOpacity>
       </View>
@@ -46,7 +83,12 @@ export default function RemoveTileScreen() {
           itemTextStyle={styles.optionTextStyle}
         />
       </View>
-      <TileList categoryName={selectedCategory} removeTile={true} />
+      <TileList
+        categoryName={selectedCategory}
+        removeTile={true}
+        selectedTiles={selectedTiles}
+        setSelectedTiles={setSelectedTiles}
+      />
     </SafeAreaView>
   );
 }

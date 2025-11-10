@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { categories } from "../../data/categories";
 import Tile from "./Tile";
 
 export default function TileList(props) {
-  const { categoryName, removeTile } = props;
-  const [selectedTiles, setSelectedTiles] = useState([]);
+  const { categoryName, removeTile, selectedTiles, setSelectedTiles } = props;
 
   // Get the data for that category from 'categories'
   const categoryData = categories[categoryName?.toLowerCase()] || {};
@@ -65,7 +63,11 @@ export default function TileList(props) {
         return (
           <Tile
             onPress={() => toggleTile(item.text)}
-            style={removeTile && isSelected ? styles.tileToRemove : null}
+            style={
+              selectedTiles.includes(item.text) && removeTile
+                ? styles.tileToRemove
+                : null
+            }
             colour={tileColour}
             shadowColour={shadowColour}
             text={item.text}
