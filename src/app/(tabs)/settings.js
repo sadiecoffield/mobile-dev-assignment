@@ -21,6 +21,7 @@ export default function Tab() {
   const [currentProfile, setCurrentProfile] = useState("Default");
   const [modalVisible, setModalVisible] = useState(false);
   const [text, onChangeText] = useState("");
+  const [attemptedSubmit, setAttemptedSubmit] = useState(false);
 
   const profiles = [
     "Default",
@@ -35,6 +36,20 @@ export default function Tab() {
     "Olivia",
     "Lauren",
   ];
+
+  function handleAdd() {
+    setAttemptedSubmit(true);
+
+    // Alert user if input field isn't filled
+    if (!text.trim()) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    // return to settings page, add profile to list etc.
+
+    setModalVisible(false); // Return to settings page
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,14 +68,17 @@ export default function Tab() {
                 Enter Profile Name
               </StyledText>
               <TextInput
-                style={styles.input}
+                style={[
+                  styles.input,
+                  !text.trim() && attemptedSubmit ? styles.errorInput : null,
+                ]}
                 onChangeText={onChangeText}
                 value={text}
                 maxLength={15}
               />
             </View>
             <TouchableOpacity
-              onPress={() => setModalVisible(false)}
+              onPress={() => handleAdd()}
               style={styles.addButton}
             >
               <Text style={styles.addButtonText}>Add</Text>
@@ -143,7 +161,7 @@ const styles = StyleSheet.create({
     width: "85%",
     backgroundColor: "#fbfbfbff",
     boxShadow: "0px 2px 6px 2px #dcdcdcff",
-    borderRadius: 8,
+    borderRadius: 10,
     alignItems: "center",
     textAlign: "left",
     padding: 35,
@@ -161,6 +179,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: "#535252ff",
     boxShadow: "0px 2px 6px 2px #dcdcdcff",
+  },
+  errorInput: {
+    boxShadow: "0px 0px 4px 2px #ee4e4eff",
   },
   addButton: {
     width: 128,
