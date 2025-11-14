@@ -1,8 +1,10 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useRouter } from "expo-router";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
   Alert,
+  Image,
   Keyboard,
   StyleSheet,
   Text,
@@ -21,6 +23,7 @@ export default function AddTileScreen() {
   const [text, onChangeText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
+  const { photoUri } = useLocalSearchParams(); // Get the URI of picture taken
 
   const categories = [
     { label: "Feelings", value: "feelings" },
@@ -45,7 +48,7 @@ export default function AddTileScreen() {
 
     // return to settings page, add tile to category etc.
 
-    router.back(); // Return to settings page
+    router.navigate("/settings"); // Return to settings page
   }
 
   return (
@@ -59,14 +62,35 @@ export default function AddTileScreen() {
             <Ionicons name="arrow-back" size={40} color="#535252ff" />
           </TouchableOpacity>
           <StyledText style={styles.heading}>Add New Tile</StyledText>
-          <View style={styles.placeholder} />
+          {
+            // If photo has been taken, display the retake button
+            photoUri ? (
+              <TouchableOpacity onPress={() => router.navigate("/camera")}>
+                <MaterialCommunityIcons
+                  name="camera-retake"
+                  size={40}
+                  color="#9b5de5"
+                />
+              </TouchableOpacity>
+            ) : (
+              <View style={styles.placeholder} />
+            )
+          }
         </View>
         <View style={styles.content}>
-          <ButtonWithIcon
-            icon={<Ionicons name="camera" size={32} color="#9b5de5" />}
-            text="Take photo"
-            onPress={() => router.navigate("/camera")}
-          />
+          {
+            // If a photo has been taken, display preview, if not display "Take photo" button
+            photoUri ? (
+              <Image source={{ uri: photoUri }} style={styles.photo} />
+            ) : (
+              <ButtonWithIcon
+                icon={<Ionicons name="camera" size={32} color="#9b5de5" />}
+                text="Take photo"
+                onPress={() => router.navigate("/camera")}
+              />
+            )
+          }
+
           <StyledText style={styles.subheading}>Caption</StyledText>
           <TextInput
             style={[
@@ -201,5 +225,13 @@ const styles = StyleSheet.create({
   },
   errorInput: {
     boxShadow: "0px 0px 4px 2px #ee4e4eff",
+  },
+  photo: {
+    width: 150,
+    height: 150,
+    marginHorizontal: "auto",
+    marginBottom: 20,
+    borderRadius: 10,
+    boxShadow: "0px 2px 6px 2px #dcdcdcff",
   },
 });

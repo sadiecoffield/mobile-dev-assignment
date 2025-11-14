@@ -2,12 +2,13 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CameraScreen() {
   const router = useRouter();
+  const cameraRef = useRef(null);
   const [facing, setFacing] = useState("back");
   const [permission, requestPermission] = useCameraPermissions();
 
@@ -32,6 +33,24 @@ export default function CameraScreen() {
     setFacing((current) => (current === "back" ? "front" : "back"));
   }
 
+  async function handleTakePhoto() {
+    try {
+      // If camera instance is mounted
+      if (cameraRef.current) {
+        // Take picture and save to app's cache directory
+        const photo = await cameraRef.current.takePictureAsync();
+
+        // Pass the uri to the local image file back to "Add New Tile" screen
+        router.navigate({
+          pathname: "/addTile",
+          params: { photoUri: photo.uri },
+        });
+      }
+    } catch (e) {
+      console.error("Failed to take picture", e);
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topBar}>
@@ -46,9 +65,17 @@ export default function CameraScreen() {
           </Text>
         </TouchableOpacity>
       </View>
-      <CameraView style={styles.camera} facing={facing} />
+      <CameraView
+        style={styles.camera}
+        facing={facing}
+        animateShutter={true}
+        ref={cameraRef}
+      />
       <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleTakePhoto()}
+        >
           <Text style={styles.text}>
             <MaterialCommunityIcons
               name="circle-slice-8"
