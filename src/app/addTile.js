@@ -29,6 +29,7 @@ export default function AddTileScreen() {
     { label: "Things", value: "things" },
   ];
 
+  // Handle "Add" button press
   function handleAdd() {
     setAttemptedSubmit(true);
 
@@ -64,6 +65,7 @@ export default function AddTileScreen() {
           <ButtonWithIcon
             icon={<Ionicons name="camera" size={32} color="#9b5de5" />}
             text="Take photo"
+            onPress={() => router.navigate("/camera")}
           />
           <StyledText style={styles.subheading}>Caption</StyledText>
           <TextInput
