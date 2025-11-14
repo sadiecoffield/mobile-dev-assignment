@@ -41,7 +41,7 @@ export default function CameraScreen() {
         const photo = await cameraRef.current.takePictureAsync();
 
         // Pass the uri to the local image file back to "Add New Tile" screen
-        router.navigate({
+        router.push({
           pathname: "/addTile",
           params: { photoUri: photo.uri },
         });

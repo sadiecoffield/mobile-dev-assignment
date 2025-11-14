@@ -48,7 +48,7 @@ export default function AddTileScreen() {
 
     // return to settings page, add tile to category etc.
 
-    router.navigate("/settings"); // Return to settings page
+    router.back(); // Return to settings page
   }
 
   return (
@@ -65,7 +65,7 @@ export default function AddTileScreen() {
           {
             // If photo has been taken, display the retake button
             photoUri ? (
-              <TouchableOpacity onPress={() => router.navigate("/camera")}>
+              <TouchableOpacity onPress={() => router.push("/camera")}>
                 <MaterialCommunityIcons
                   name="camera-retake"
                   size={40}
@@ -86,7 +86,7 @@ export default function AddTileScreen() {
               <ButtonWithIcon
                 icon={<Ionicons name="camera" size={32} color="#9b5de5" />}
                 text="Take photo"
-                onPress={() => router.navigate("/camera")}
+                onPress={() => router.push("/camera")}
               />
             )
           }
