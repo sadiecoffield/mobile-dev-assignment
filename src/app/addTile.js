@@ -15,8 +15,10 @@ import {
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { categories } from "../../data/categories";
 import ButtonWithIcon from "../components/ButtonWithIcon";
 import StyledText from "../components/StyledText";
+import { createTile } from "../models/tile";
 
 export default function AddTileScreen() {
   const router = useRouter();
@@ -25,7 +27,7 @@ export default function AddTileScreen() {
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
   const { photoUri } = useLocalSearchParams(); // Get the URI of picture taken
 
-  const categories = [
+  const categoryOptions = [
     { label: "Feelings", value: "feelings" },
     { label: "Needs", value: "needs" },
     { label: "People", value: "people" },
@@ -46,7 +48,13 @@ export default function AddTileScreen() {
       return;
     }
 
-    // return to settings page, add tile to category etc.
+    // Create new tile object with photo and caption
+    const newTileObj = createTile(text, photoUri);
+
+    console.log("Selected category:", selectedCategory);
+    console.log("Object:", categories[selectedCategory]);
+    // Add new tile to the tiles array of the selected category
+    categories[selectedCategory].tiles.push(newTileObj);
 
     router.back(); // Return to settings page
   }
@@ -104,7 +112,7 @@ export default function AddTileScreen() {
           />
           <StyledText style={styles.subheading}>Select Category</StyledText>
           <Dropdown
-            data={categories}
+            data={categoryOptions}
             labelField="label"
             valueField="value"
             placeholder="Categories"
