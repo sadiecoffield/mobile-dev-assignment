@@ -38,6 +38,16 @@ export default function AddTileScreen() {
   function handleAdd() {
     setAttemptedSubmit(true);
 
+    // Alert user if no picture has been taken
+    if (!photoUri) {
+      Alert.alert(
+        "Missing Tile Picture",
+        "Take a photo to display on the new tile",
+        [{ text: "OK" }]
+      );
+      return;
+    }
+
     // Alert user if input fields aren't filled
     if (!text.trim() || !selectedCategory) {
       Alert.alert(
@@ -95,7 +105,7 @@ export default function AddTileScreen() {
             ) : (
               <ButtonWithIcon
                 icon={<Ionicons name="camera" size={32} color="#9b5de5" />}
-                text="Take photo"
+                text="Take Photo"
                 onPress={() => router.push("/camera")}
               />
             )
