@@ -77,15 +77,22 @@ export default function TileList(props) {
               !item.custom ? (
                 getIcon(item.iconLibrary, item.iconName, item.iconColor)
               ) : (
-                <Image source={{ uri: item.photoUri }} style={styles.photo} />
+                <Image
+                  source={{ uri: item.photoUri }}
+                  style={[
+                    styles.photo,
+                    { boxShadow: `2px 4px 4px ${shadowColour}` },
+                  ]}
+                />
               )
             }
           />
         );
       }}
       horizontal={false}
-      numColumns={3}
+      numColumns={2}
       contentContainerStyle={styles.listContainer}
+      showsVerticalScrollIndicator={false}
     />
   );
 }
@@ -101,8 +108,8 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   photo: {
-    width: 40,
-    height: 40,
+    width: 90,
+    height: 90,
     borderRadius: 10,
   },
 });

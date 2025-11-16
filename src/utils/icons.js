@@ -21,5 +21,5 @@ export function getIcon(library, name, color) {
     return null;
   }
 
-  return <IconComponent name={name} size={40} color={color} />;
+  return <IconComponent name={name} size={90} color={color} />;
 }

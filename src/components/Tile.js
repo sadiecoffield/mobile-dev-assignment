@@ -23,14 +23,14 @@ export default function Tile(props) {
 
 // Calculate tile spacing depending on screen size
 const screenWidth = Dimensions.get("window").width;
-const numOfColumns = 3;
+const numOfColumns = 2;
 const tileSize = (screenWidth - 60) / numOfColumns;
 
 const styles = StyleSheet.create({
   container: {
     width: tileSize,
     height: tileSize,
-    margin: 5,
+    margin: 6,
     padding: 8,
     backgroundColor: "grey",
     borderRadius: 10,
