@@ -4,12 +4,13 @@ import * as Crypto from "expo-crypto";
 export function createTile({
   text = "",
   zone = "",
-  iconLibrary = "",
-  iconName = "",
-  iconColor = "",
+  iconLibrary = null,
+  iconName = null,
+  iconColor = null,
+  custom = false,
   photoUri = "",
 }) {
   const id = Crypto.randomUUID();
 
-  return { id, text, zone, iconLibrary, iconName, iconColor, photoUri };
+  return { id, text, zone, iconLibrary, iconName, iconColor, custom, photoUri };
 }

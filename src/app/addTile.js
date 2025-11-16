@@ -49,10 +49,12 @@ export default function AddTileScreen() {
     }
 
     // Create new tile object with photo and caption
-    const newTileObj = createTile(text, photoUri);
+    const newTileObj = createTile({
+      text,
+      photoUri,
+      custom: true,
+    });
 
-    console.log("Selected category:", selectedCategory);
-    console.log("Object:", categories[selectedCategory]);
     // Add new tile to the tiles array of the selected category
     categories[selectedCategory].tiles.push(newTileObj);
 

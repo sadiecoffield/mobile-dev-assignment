@@ -1,6 +1,7 @@
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, Image, StyleSheet } from "react-native";
 import { categories } from "../../data/categories";
 import { speak } from "../api/text-to-speech";
+import { getIcon } from "../utils/icons";
 import Tile from "./Tile";
 
 export default function TileList(props) {
@@ -72,7 +73,13 @@ export default function TileList(props) {
             colour={tileColour}
             shadowColour={shadowColour}
             text={item.text}
-            icon={item.icon}
+            icon={
+              !item.custom ? (
+                getIcon(item.iconLibrary, item.iconName, item.iconColor)
+              ) : (
+                <Image source={{ uri: item.photoUri }} style={styles.photo} />
+              )
+            }
           />
         );
       }}
@@ -92,5 +99,10 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: "#535252ff",
     opacity: 0.5,
+  },
+  photo: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
   },
 });
