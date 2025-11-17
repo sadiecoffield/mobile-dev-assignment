@@ -2,7 +2,7 @@ import { createTile } from "../src/models/tile";
 
 export const categories = {
   feelings: {
-    title: "Feelings",
+    title: "feelings",
     color: "#9b5de5",
     tiles: [
       createTile({
@@ -85,7 +85,7 @@ export const categories = {
     ],
   },
   needs: {
-    title: "Needs",
+    title: "needs",
     color: "#f2a500ff",
     tiles: [
       createTile({
@@ -121,7 +121,7 @@ export const categories = {
     ],
   },
   people: {
-    title: "People",
+    title: "people",
     color: "#3bceac",
     tiles: [
       createTile({
@@ -163,7 +163,7 @@ export const categories = {
     ],
   },
   things: {
-    title: "Things",
+    title: "things",
     color: "#f15bb5",
     tiles: [
       createTile({

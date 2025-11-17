@@ -7,10 +7,10 @@ export default function Tab() {
   return (
     <SafeAreaView style={styles.container}>
       <StyledText style={styles.heading}>Categories</StyledText>
-      <CategoryButton category="Feelings" colour="#9b5de5"></CategoryButton>
-      <CategoryButton category="Needs" colour="#f2a500ff"></CategoryButton>
-      <CategoryButton category="People" colour="#3bceac"></CategoryButton>
-      <CategoryButton category="Things" colour="#f15bb5"></CategoryButton>
+      <CategoryButton category="feelings" colour="#9b5de5"></CategoryButton>
+      <CategoryButton category="needs" colour="#f2a500ff"></CategoryButton>
+      <CategoryButton category="people" colour="#3bceac"></CategoryButton>
+      <CategoryButton category="things" colour="#f15bb5"></CategoryButton>
     </SafeAreaView>
   );
 }

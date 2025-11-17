@@ -2,21 +2,15 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";
 import { SafeAreaView } from "react-native-safe-area-context";
+import CategoryDropdown from "../components/CategoryDropdown";
 import StyledText from "../components/StyledText";
 import TileList from "../components/TileList";
 
 export default function RemoveTileScreen() {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState("Needs");
+  const [selectedCategory, setSelectedCategory] = useState("needs");
   const [selectedTiles, setSelectedTiles] = useState([]);
-
-  const categories = [
-    { label: "Needs", value: "Needs" },
-    { label: "People", value: "People" },
-    { label: "Things", value: "Things" },
-  ];
 
   function handleRemoveTile() {
     // If no tiles selected, alert user to select tiles
@@ -63,17 +57,9 @@ export default function RemoveTileScreen() {
         </TouchableOpacity>
       </View>
       <View style={styles.dropdownContainer}>
-        <Dropdown
-          data={categories}
-          labelField="label"
-          valueField="value"
-          placeholder={selectedCategory}
-          value={selectedCategory}
-          onChange={(item) => setSelectedCategory(item.value)}
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          itemTextStyle={styles.optionTextStyle}
+        <CategoryDropdown
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
         />
       </View>
       <TileList

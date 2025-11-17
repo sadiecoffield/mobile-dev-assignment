@@ -33,7 +33,7 @@ export default function TileList(props) {
         let tileColour = "";
         let shadowColour = "";
 
-        if (categoryName === "Feelings") {
+        if (categoryName === "feelings") {
           // Set tile colour to the corresponding regulation zone colour
           if (item.zone === "green") {
             tileColour = "#3ccc6cff";
@@ -48,10 +48,10 @@ export default function TileList(props) {
             tileColour = "#ee4e4eff";
             shadowColour = "#852929ff";
           }
-        } else if (categoryName === "Needs") {
+        } else if (categoryName === "needs") {
           tileColour = "#f2a500ff";
           shadowColour = "#916300ff";
-        } else if (categoryName === "People") {
+        } else if (categoryName === "people") {
           tileColour = "#3bceac";
           shadowColour = "#227864ff";
         } else {

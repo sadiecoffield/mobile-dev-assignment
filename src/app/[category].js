@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { categories } from "../../data/categories";
 import StyledText from "../components/StyledText";
 import TileList from "../components/TileList";
+import { capatilize } from "../utils/capatilize";
 
 export default function CategoryScreen() {
   const router = useRouter();
@@ -24,7 +25,9 @@ export default function CategoryScreen() {
         >
           <Ionicons name="arrow-back" size={40} color="#535252ff" />
         </TouchableOpacity>
-        <StyledText style={styles.heading}>{categoryData.title}</StyledText>
+        <StyledText style={styles.heading}>
+          {capatilize(categoryData.title)}
+        </StyledText>
         <View style={styles.placeholder} />
       </View>
       <TileList

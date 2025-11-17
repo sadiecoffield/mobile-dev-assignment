@@ -13,10 +13,10 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { categories } from "../../data/categories";
 import ButtonWithIcon from "../components/ButtonWithIcon";
+import CategoryDropdown from "../components/CategoryDropdown";
 import StyledText from "../components/StyledText";
 import { createTile } from "../models/tile";
 
@@ -26,12 +26,6 @@ export default function AddTileScreen() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
   const { photoUri } = useLocalSearchParams(); // Get the URI of picture taken
-
-  const categoryOptions = [
-    { label: "Needs", value: "needs" },
-    { label: "People", value: "people" },
-    { label: "Things", value: "things" },
-  ];
 
   // Handle "Add" button press
   function handleAdd() {
@@ -122,20 +116,13 @@ export default function AddTileScreen() {
             placeholder="E.g. Specific book"
           />
           <StyledText style={styles.subheading}>Select Category</StyledText>
-          <Dropdown
-            data={categoryOptions}
-            labelField="label"
-            valueField="value"
+          <CategoryDropdown
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
             placeholder="Categories"
-            value={selectedCategory}
-            onChange={(item) => setSelectedCategory(item.value)}
-            style={[
-              styles.dropdown,
-              !selectedCategory && attemptedSubmit ? styles.errorInput : null,
-            ]}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            itemTextStyle={styles.optionTextStyle}
+            errorStyle={
+              !selectedCategory && attemptedSubmit ? styles.errorInput : null
+            }
           />
         </View>
         <View style={styles.footer}>
@@ -201,27 +188,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: "#535252ff",
     boxShadow: "0px 2px 6px 2px #dcdcdcff",
-  },
-  dropdown: {
-    width: "100%",
-    height: 50,
-    borderRadius: 8,
-    padding: 10,
-    marginTop: 10,
-    backgroundColor: "#ffffff",
-    boxShadow: "0px 2px 6px 2px #dcdcdcff",
-  },
-  placeholderStyle: {
-    color: "#c5c5c5ff",
-    fontSize: 24,
-  },
-  selectedTextStyle: {
-    color: "#535252ff",
-    fontSize: 24,
-  },
-  optionTextStyle: {
-    color: "#535252ff",
-    fontSize: 18,
   },
   addButton: {
     width: 128,

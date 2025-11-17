@@ -3,6 +3,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRouter } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { capatilize } from "../utils/capatilize";
 
 export default function CategoryButton(props) {
   const { category, colour } = props;
@@ -11,10 +12,10 @@ export default function CategoryButton(props) {
   let shadowColour = "";
 
   // Get each category's corresponding icon and shadow colour
-  if (category === "Feelings") {
+  if (category === "feelings") {
     icon = <MaterialIcons name="emoji-emotions" size={40} color="#513079ff" />;
     shadowColour = "#513079ff";
-  } else if (category === "Needs") {
+  } else if (category === "needs") {
     icon = (
       <MaterialCommunityIcons
         name="food-fork-drink"
@@ -23,7 +24,7 @@ export default function CategoryButton(props) {
       />
     );
     shadowColour = "#916300ff";
-  } else if (category === "People") {
+  } else if (category === "people") {
     icon = <FontAwesome6 name="people-group" size={40} color="#227864ff" />;
     shadowColour = "#227864ff";
   } else {
@@ -51,7 +52,7 @@ export default function CategoryButton(props) {
       }}
     >
       <Text>{icon}</Text>
-      <Text style={styles.categoryText}>{category}</Text>
+      <Text style={styles.categoryText}>{capatilize(category)}</Text>
     </TouchableOpacity>
   );
 }
