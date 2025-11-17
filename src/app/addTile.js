@@ -28,7 +28,6 @@ export default function AddTileScreen() {
   const { photoUri } = useLocalSearchParams(); // Get the URI of picture taken
 
   const categoryOptions = [
-    { label: "Feelings", value: "feelings" },
     { label: "Needs", value: "needs" },
     { label: "People", value: "people" },
     { label: "Things", value: "things" },

@@ -9,11 +9,10 @@ import TileList from "../components/TileList";
 
 export default function RemoveTileScreen() {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState("Feelings");
+  const [selectedCategory, setSelectedCategory] = useState("Needs");
   const [selectedTiles, setSelectedTiles] = useState([]);
 
   const categories = [
-    { label: "Feelings", value: "Feelings" },
     { label: "Needs", value: "Needs" },
     { label: "People", value: "People" },
     { label: "Things", value: "Things" },
