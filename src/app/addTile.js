@@ -85,7 +85,7 @@ export default function AddTileScreen() {
           {
             // If photo has been taken, display the retake button
             photoUri ? (
-              <TouchableOpacity onPress={() => router.push("/camera")}>
+              <TouchableOpacity onPress={() => router.replace("/camera")}>
                 <MaterialCommunityIcons
                   name="camera-retake"
                   size={40}
@@ -106,7 +106,7 @@ export default function AddTileScreen() {
               <ButtonWithIcon
                 icon={<Ionicons name="camera" size={32} color="#9b5de5" />}
                 text="Take Photo"
-                onPress={() => router.push("/camera")}
+                onPress={() => router.replace("/camera")}
               />
             )
           }

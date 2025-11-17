@@ -41,7 +41,7 @@ export default function CameraScreen() {
         const photo = await cameraRef.current.takePictureAsync();
 
         // Pass the uri to the local image file back to "Add New Tile" screen
-        router.push({
+        router.replace({
           pathname: "/addTile",
           params: { photoUri: photo.uri },
         });
@@ -54,7 +54,10 @@ export default function CameraScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topBar}>
-        <TouchableOpacity style={styles.button} onPress={() => router.back()}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.replace("/addTile")}
+        >
           <Text style={styles.text}>
             <Ionicons name="close" size={40} color="white" />
           </Text>
