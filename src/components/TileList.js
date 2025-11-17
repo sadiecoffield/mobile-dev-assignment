@@ -1,7 +1,8 @@
-import { FlatList, Image, StyleSheet } from "react-native";
+import { FlatList, Image, StyleSheet, View } from "react-native";
 import { categories } from "../../data/categories";
 import { speak } from "../api/text-to-speech";
 import { getIcon } from "../utils/icons";
+import { getTileSize } from "../utils/tileSize";
 import Tile from "./Tile";
 
 export default function TileList(props) {
@@ -26,13 +27,29 @@ export default function TileList(props) {
     });
   };
 
+  // Get all the custom tiles for the given category
+  const customTiles = categoryData.tiles.filter((tile) => tile.custom);
+
+  // If there's only one tile in the array
+  if (customTiles.length === 1) {
+    // Add placeholder to array to align single tile to the left of screen
+    customTiles.push({ placeholder: true });
+  }
+
   return (
     <FlatList
-      data={categoryData.tiles}
+      data={!removeTile ? categoryData.tiles : customTiles}
       renderItem={({ item }) => {
+        // Render placeholder tile if it exists
+        if (item.placeholder) {
+          const tileSize = getTileSize();
+          return <View style={{ width: tileSize, height: tileSize }} />;
+        }
+
         let tileColour = "";
         let shadowColour = "";
 
+        // Set tile colours depending on the category
         if (categoryName === "feelings") {
           // Set tile colour to the corresponding regulation zone colour
           if (item.zone === "green") {
@@ -93,6 +110,7 @@ export default function TileList(props) {
       numColumns={2}
       contentContainerStyle={styles.listContainer}
       showsVerticalScrollIndicator={false}
+      columnWrapperStyle={{ justifyContent: "flex-start" }}
     />
   );
 }

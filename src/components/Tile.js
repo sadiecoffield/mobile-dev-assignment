@@ -1,4 +1,5 @@
-import { Dimensions, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { getTileSize } from "../utils/tileSize";
 import StyledText from "./StyledText";
 
 export default function Tile(props) {
@@ -22,9 +23,7 @@ export default function Tile(props) {
 }
 
 // Calculate tile spacing depending on screen size
-const screenWidth = Dimensions.get("window").width;
-const numOfColumns = 2;
-const tileSize = (screenWidth - 60) / numOfColumns;
+const tileSize = getTileSize();
 
 const styles = StyleSheet.create({
   container: {
