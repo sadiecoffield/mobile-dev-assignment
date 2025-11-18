@@ -41,7 +41,7 @@ export default function RemoveTileScreen() {
           onPress: () => {
             // Create a new object to avoid mutating state
             const updatedCategories = {};
-            console.log(categoriesData);
+
             Object.keys(categoriesData).forEach((key) => {
               updatedCategories[key] = {
                 ...categoriesData[key],
