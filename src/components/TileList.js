@@ -1,6 +1,6 @@
 import { FlatList, Image, StyleSheet, View } from "react-native";
-import { categories } from "../../data/categories";
 import { speak } from "../api/text-to-speech";
+import { useCategories } from "../contexts/CategoriesContext";
 import { getIcon } from "../utils/icons";
 import { getTileSize } from "../utils/tileSize";
 import Tile from "./Tile";
@@ -8,21 +8,23 @@ import Tile from "./Tile";
 export default function TileList(props) {
   const { categoryName, removeTile, selectedTiles, setSelectedTiles } = props;
 
+  const { categoriesData } = useCategories();
+
   // Get the data for that category from 'categories'
-  const categoryData = categories[categoryName?.toLowerCase()] || {};
+  const categoryData = categoriesData[categoryName?.toLowerCase()] || {};
 
   // Toggle selected tiles when pressed
-  const toggleTile = (text) => {
+  const toggleTile = (tileID) => {
     if (!removeTile) return;
 
     setSelectedTiles((prev) => {
       // If tile is already in selected array
-      if (prev.includes(text)) {
+      if (prev.includes(tileID)) {
         // Remove tile from selection array and return new array
-        return prev.filter((t) => t !== text);
+        return prev.filter((id) => id !== tileID);
       } else {
         // Add tile to selection
-        return [...prev, text];
+        return [...prev, tileID];
       }
     });
   };
@@ -80,10 +82,10 @@ export default function TileList(props) {
           <Tile
             onPress={
               // Pass correct onPress function
-              removeTile ? () => toggleTile(item.text) : () => speak(item.text)
+              removeTile ? () => toggleTile(item.id) : () => speak(item.text)
             }
             style={
-              selectedTiles.includes(item.text) && removeTile
+              selectedTiles.includes(item.id) && removeTile
                 ? styles.tileToRemove
                 : null
             }

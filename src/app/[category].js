@@ -2,19 +2,20 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { categories } from "../../data/categories";
 import StyledText from "../components/StyledText";
 import TileList from "../components/TileList";
+import { useCategories } from "../contexts/CategoriesContext";
 import { capatilize } from "../utils/capatilize";
 
 export default function CategoryScreen() {
   const router = useRouter();
+  const { categoriesData } = useCategories();
 
   // Get category name from url parameters
   const { categoryName } = useLocalSearchParams();
 
   // Get the data for that category from 'categories'
-  const categoryData = categories[categoryName?.toLowerCase()] || {};
+  const categoryData = categoriesData[categoryName?.toLowerCase()] || {};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,6 +36,7 @@ export default function CategoryScreen() {
         removeTile={false}
         selectedTiles={[]}
         setSelectedTiles={[]}
+        tilesData={categoriesData}
       />
     </SafeAreaView>
   );

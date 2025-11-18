@@ -14,10 +14,10 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { categories } from "../../data/categories";
 import ButtonWithIcon from "../components/ButtonWithIcon";
 import CategoryDropdown from "../components/CategoryDropdown";
 import StyledText from "../components/StyledText";
+import { useCategories } from "../contexts/CategoriesContext";
 import { createTile } from "../models/tile";
 
 export default function AddTileScreen() {
@@ -26,6 +26,7 @@ export default function AddTileScreen() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
   const { photoUri } = useLocalSearchParams(); // Get the URI of picture taken
+  const { setCategoriesData } = useCategories();
 
   // Handle "Add" button press
   function handleAdd() {
@@ -59,7 +60,15 @@ export default function AddTileScreen() {
     });
 
     // Add new tile to the tiles array of the selected category
-    categories[selectedCategory].tiles.push(newTileObj);
+    setCategoriesData((prev) => ({
+      // Copy previous category into new categories object
+      ...prev,
+      // Update selected category object's tiles array to include new tile
+      [selectedCategory]: {
+        ...prev[selectedCategory],
+        tiles: [...prev[selectedCategory].tiles, newTileObj],
+      },
+    }));
 
     router.back(); // Return to settings page
   }

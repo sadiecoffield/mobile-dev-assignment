@@ -6,11 +6,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CategoryDropdown from "../components/CategoryDropdown";
 import StyledText from "../components/StyledText";
 import TileList from "../components/TileList";
+import { useCategories } from "../contexts/CategoriesContext";
 
 export default function RemoveTileScreen() {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("needs");
   const [selectedTiles, setSelectedTiles] = useState([]);
+  const { categoriesData, setCategoriesData } = useCategories();
 
   function handleRemoveTile() {
     // If no tiles selected, alert user to select tiles
@@ -36,7 +38,22 @@ export default function RemoveTileScreen() {
         },
         {
           text: "OK",
-          onPress: () => console.log("OK Pressed"), // REMOVE SELECTED TILES FROM TILELIST
+          onPress: () => {
+            // Create a new object to avoid mutating state
+            const updatedCategories = {};
+            console.log(categoriesData);
+            Object.keys(categoriesData).forEach((key) => {
+              updatedCategories[key] = {
+                ...categoriesData[key],
+                tiles: categoriesData[key].tiles.filter(
+                  (tile) => !selectedTiles.includes(tile.id)
+                ),
+              };
+            });
+
+            setCategoriesData(updatedCategories); // trigger rerender
+            setSelectedTiles([]); // clear selection after deletion
+          },
         },
       ]
     );
@@ -67,6 +84,7 @@ export default function RemoveTileScreen() {
         removeTile={true}
         selectedTiles={selectedTiles}
         setSelectedTiles={setSelectedTiles}
+        tilesData={categoriesData}
       />
     </SafeAreaView>
   );

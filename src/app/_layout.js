@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import { useEffect } from "react";
-import { Provider as PaperProvider } from "react-native-paper";
 import { initVoice } from "../api/text-to-speech.js";
+import { CategoriesProvider } from "../contexts/CategoriesContext.js";
 
 export default function RootLayout() {
   // Initialise the voice used for text to speech
@@ -10,7 +10,7 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <PaperProvider>
+    <CategoriesProvider>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="[category]" options={{ headerShown: false }} />
@@ -18,6 +18,6 @@ export default function RootLayout() {
         <Stack.Screen name="removeTile" options={{ headerShown: false }} />
         <Stack.Screen name="camera" options={{ headerShown: false }} />
       </Stack>
-    </PaperProvider>
+    </CategoriesProvider>
   );
 }
