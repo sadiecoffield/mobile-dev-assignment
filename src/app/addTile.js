@@ -1,5 +1,6 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { Directory, File, Paths } from "expo-file-system";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -28,8 +29,37 @@ export default function AddTileScreen() {
   const { photoUri } = useLocalSearchParams(); // Get the URI of picture taken
   const { setCategoriesData } = useCategories();
 
+  // Move the photo from cache to permanent storage
+  async function savePermanentPhoto(photoUri) {
+    try {
+      // Get the filename from the photo's location in cache
+      const filename = photoUri.split("/").pop();
+
+      // Create directory in permanent storage to store tile photos
+      const photosDir = new Directory(Paths.document, "tile-photos");
+
+      // Only create the directory if it doesn't already exist
+      if (!photosDir) {
+        photosDir.create();
+      }
+
+      // Create file object for the photo
+      const file = new File(photoUri);
+
+      // Move the photo from cache to the new directory in permanent storage
+      file.move(photosDir);
+
+      // Form new file path to the photo to store in tile objects
+      const newPath = `${photosDir.uri}/${filename}`;
+
+      return newPath;
+    } catch (e) {
+      console.log("Error saving photo permanently: ", e);
+    }
+  }
+
   // Handle "Add" button press
-  function handleAdd() {
+  async function handleAdd() {
     setAttemptedSubmit(true);
 
     // Alert user if no picture has been taken
@@ -52,10 +82,13 @@ export default function AddTileScreen() {
       return;
     }
 
+    // Get path to photo in permanent storage
+    const permanentPhoto = await savePermanentPhoto(photoUri);
+
     // Create new tile object with photo and caption
     const newTileObj = createTile({
       text,
-      photoUri,
+      photo: permanentPhoto,
       custom: true,
     });
 

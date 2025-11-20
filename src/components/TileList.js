@@ -97,7 +97,7 @@ export default function TileList(props) {
                 getIcon(item.iconLibrary, item.iconName, item.iconColor)
               ) : (
                 <Image
-                  source={{ uri: item.photoUri }}
+                  source={{ uri: item.photo }}
                   style={[
                     styles.photo,
                     { boxShadow: `2px 4px 4px ${shadowColour}` },
