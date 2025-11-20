@@ -1,4 +1,5 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { File } from "expo-file-system";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
@@ -13,6 +14,19 @@ export default function RemoveTileScreen() {
   const [selectedCategory, setSelectedCategory] = useState("needs");
   const [selectedTiles, setSelectedTiles] = useState([]);
   const { categoriesData, setCategoriesData } = useCategories();
+
+  // Delete tile photo from permanent storage when tile is deleted
+  function deletePermanentPhoto(photo) {
+    try {
+      // Create file object for photo being deleted
+      const file = new File(photo);
+
+      // Delete the photo file from storage
+      file.delete();
+    } catch (e) {
+      console.log("Error deleting photo permanently: ", e);
+    }
+  }
 
   function handleRemoveTile() {
     // If no tiles selected, alert user to select tiles
@@ -42,17 +56,23 @@ export default function RemoveTileScreen() {
             // Create a new object to avoid mutating state
             const updatedCategories = {};
 
+            // Loop through all categories and filter out tiles being removed
             Object.keys(categoriesData).forEach((key) => {
               updatedCategories[key] = {
                 ...categoriesData[key],
-                tiles: categoriesData[key].tiles.filter(
-                  (tile) => !selectedTiles.includes(tile.id)
-                ),
+                tiles: categoriesData[key].tiles.filter((tile) => {
+                  // Delete selected tile photos from storage
+                  if (selectedTiles.includes(tile.id)) {
+                    deletePermanentPhoto(tile.photo);
+                  }
+
+                  return !selectedTiles.includes(tile.id);
+                }),
               };
             });
 
-            setCategoriesData(updatedCategories); // trigger rerender
-            setSelectedTiles([]); // clear selection after deletion
+            setCategoriesData(updatedCategories); // Trigger rerender
+            setSelectedTiles([]); // Clear selection after deletion
           },
         },
       ]
