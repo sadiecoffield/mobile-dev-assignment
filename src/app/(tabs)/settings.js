@@ -18,17 +18,18 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonWithIcon from "../../components/ButtonWithIcon";
 import ProfileButton from "../../components/ProfileButton";
 import StyledText from "../../components/StyledText";
+import { useProfiles } from "../../contexts/ProfilesProvider";
+import { createProfile } from "../../models/profile";
 
 export default function Tab() {
   const router = useRouter();
-
-  const [currentProfile, setCurrentProfile] = useState("Default");
   const [modalVisible, setModalVisible] = useState(false);
   const [text, onChangeText] = useState("");
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
-  const [profiles, setProfiles] = useState(["Default"]);
+  const { profilesData, setProfilesData, currentProfile, setCurrentProfile } =
+    useProfiles();
 
-  function handleAdd() {
+  function handleAddProfile() {
     setAttemptedSubmit(true);
 
     // Alert user if input field isn't filled
@@ -39,12 +40,44 @@ export default function Tab() {
       return;
     }
 
+    // Create new profile object
+    const newProfileObj = createProfile({
+      name: text,
+      customTiles: [],
+    });
+
     // Add new profile to array
-    setProfiles((prev) => [...prev, text]);
+    setProfilesData((prev) => [...prev, newProfileObj]);
 
     onChangeText(""); // Clear input field
     setAttemptedSubmit(false); // Stop error styles when modal next loads
     setModalVisible(false);
+  }
+
+  function handleDeleteProfile(profileId) {
+    // Confirm the user wants to delete the profile
+    Alert.alert("Delete Profile?", "Are you sure?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        onPress: () => {
+          setProfilesData((prev) =>
+            prev.filter((profile) => profile.id !== profileId)
+          );
+        },
+      },
+    ]);
+
+    if (currentProfile.id === profileId) {
+      setCurrentProfile(profilesData[0]);
+    }
+  }
+
+  function handleSelectProfile(profile) {
+    setCurrentProfile(profile);
   }
 
   return (
@@ -83,7 +116,7 @@ export default function Tab() {
                 />
               </View>
               <TouchableOpacity
-                onPress={() => handleAdd()}
+                onPress={() => handleAddProfile()}
                 style={styles.addButton}
               >
                 <Text style={styles.addButtonText}>Add</Text>
@@ -112,13 +145,13 @@ export default function Tab() {
           text="Add new profile"
         />
         <FlatList
-          data={profiles}
+          data={profilesData || []}
           renderItem={({ item }) => {
             return (
               <ProfileButton
-                profileName={item}
-                currentProfile={currentProfile}
-                onSelect={setCurrentProfile}
+                profile={item}
+                selectProfile={handleSelectProfile}
+                deleteProfile={handleDeleteProfile}
               />
             );
           }}

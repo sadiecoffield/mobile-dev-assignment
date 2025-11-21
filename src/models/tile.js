@@ -9,8 +9,19 @@ export function createTile({
   iconColor = null,
   custom = false,
   photo = "",
+  categoryName = "",
 }) {
   const id = Crypto.randomUUID();
 
-  return { id, text, zone, iconLibrary, iconName, iconColor, custom, photo };
+  return {
+    id,
+    text,
+    zone,
+    iconLibrary,
+    iconName,
+    iconColor,
+    custom,
+    photo,
+    categoryName,
+  };
 }

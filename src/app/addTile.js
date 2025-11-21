@@ -18,7 +18,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonWithIcon from "../components/ButtonWithIcon";
 import CategoryDropdown from "../components/CategoryDropdown";
 import StyledText from "../components/StyledText";
-import { useCategories } from "../contexts/CategoriesContext";
+import { useProfiles } from "../contexts/ProfilesProvider";
 import { createTile } from "../models/tile";
 
 export default function AddTileScreen() {
@@ -27,7 +27,7 @@ export default function AddTileScreen() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
   const { photoUri } = useLocalSearchParams(); // Get the URI of picture taken
-  const { setCategoriesData } = useCategories();
+  const { setProfilesData, currentProfile, setCurrentProfile } = useProfiles();
 
   // Move the photo from cache to permanent storage
   async function savePermanentPhoto(photoUri) {
@@ -90,18 +90,30 @@ export default function AddTileScreen() {
       text,
       photo: permanentPhoto,
       custom: true,
+      categoryName: selectedCategory,
     });
 
-    // Add new tile to the tiles array of the selected category
-    setCategoriesData((prev) => ({
-      // Copy previous category into new categories object
-      ...prev,
-      // Update selected category object's tiles array to include new tile
-      [selectedCategory]: {
-        ...prev[selectedCategory],
-        tiles: [...prev[selectedCategory].tiles, newTileObj],
-      },
-    }));
+    // Update the current profile in the profilesData array
+    setProfilesData((prev) => {
+      // Loop through each profile object in array
+      return prev.map((profile) => {
+        // Update profile's custom tiles array if it's the current profile
+        return profile.name === currentProfile.name
+          ? {
+              ...profile,
+              customTiles: [...profile.customTiles, newTileObj],
+            }
+          : profile;
+      });
+    });
+
+    // Update the currentProfile object's custom tiles array
+    setCurrentProfile((prev) => {
+      return {
+        ...prev,
+        customTiles: [...prev.customTiles, newTileObj],
+      };
+    });
 
     router.back(); // Return to settings page
   }

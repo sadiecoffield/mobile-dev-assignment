@@ -1,17 +1,28 @@
 import { FlatList, Image, StyleSheet, View } from "react-native";
+import { categories } from "../../data/categories";
 import { speak } from "../api/text-to-speech";
-import { useCategories } from "../contexts/CategoriesContext";
+import { useProfiles } from "../contexts/ProfilesProvider";
 import { getIcon } from "../utils/icons";
 import { getTileSize } from "../utils/tileSize";
 import Tile from "./Tile";
 
 export default function TileList(props) {
   const { categoryName, removeTile, selectedTiles, setSelectedTiles } = props;
+  const { currentProfile } = useProfiles();
 
-  const { categoriesData } = useCategories();
+  // Get the default data for that category from 'categories'
+  const categoryData = categories[categoryName?.toLowerCase()] || {};
 
-  // Get the data for that category from 'categories'
-  const categoryData = categoriesData[categoryName?.toLowerCase()] || {};
+  // Get all the custom tiles for the current profile
+  const customTiles = [...(currentProfile?.customTiles ?? [])];
+
+  // Get the custom tiles for this category
+  const categoryCustomTiles = currentProfile?.customTiles?.filter(
+    (tile) => tile.categoryName === categoryName
+  );
+
+  // Merge the default tiles array with the custom tiles array
+  const mergedTiles = [...categoryData.tiles, ...categoryCustomTiles];
 
   // Toggle selected tiles when pressed
   const toggleTile = (tileID) => {
@@ -29,18 +40,15 @@ export default function TileList(props) {
     });
   };
 
-  // Get all the custom tiles for the given category
-  const customTiles = categoryData.tiles.filter((tile) => tile.custom);
-
   // If there's only one tile in the array
   if (customTiles.length === 1) {
     // Add placeholder to array to align single tile to the left of screen
-    customTiles.push({ placeholder: true });
+    customTiles = [...customTiles, { placeholder: true }];
   }
 
   return (
     <FlatList
-      data={!removeTile ? categoryData.tiles : customTiles}
+      data={!removeTile ? mergedTiles : categoryCustomTiles}
       renderItem={({ item }) => {
         // Render placeholder tile if it exists
         if (item.placeholder) {

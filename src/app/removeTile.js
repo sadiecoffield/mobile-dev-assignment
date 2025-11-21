@@ -7,13 +7,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CategoryDropdown from "../components/CategoryDropdown";
 import StyledText from "../components/StyledText";
 import TileList from "../components/TileList";
-import { useCategories } from "../contexts/CategoriesContext";
+import { useProfiles } from "../contexts/ProfilesProvider";
 
 export default function RemoveTileScreen() {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("needs");
   const [selectedTiles, setSelectedTiles] = useState([]);
-  const { categoriesData, setCategoriesData } = useCategories();
+  const { currentProfile } = useProfiles();
 
   // Delete tile photo from permanent storage when tile is deleted
   function deletePermanentPhoto(photo) {
@@ -53,25 +53,15 @@ export default function RemoveTileScreen() {
         {
           text: "OK",
           onPress: () => {
-            // Create a new object to avoid mutating state
-            const updatedCategories = {};
+            // Remove selected tiles from the profile's tile array and storage
+            currentProfile.customTiles.filter((tile) => {
+              if (selectedTiles.includes(tile.id)) {
+                deletePermanentPhoto(tile.photo);
+              }
 
-            // Loop through all categories and filter out tiles being removed
-            Object.keys(categoriesData).forEach((key) => {
-              updatedCategories[key] = {
-                ...categoriesData[key],
-                tiles: categoriesData[key].tiles.filter((tile) => {
-                  // Delete selected tile photos from storage
-                  if (selectedTiles.includes(tile.id)) {
-                    deletePermanentPhoto(tile.photo);
-                  }
-
-                  return !selectedTiles.includes(tile.id);
-                }),
-              };
+              return !selectedTiles.includes(tile.id);
             });
 
-            setCategoriesData(updatedCategories); // Trigger rerender
             setSelectedTiles([]); // Clear selection after deletion
           },
         },
@@ -104,7 +94,7 @@ export default function RemoveTileScreen() {
         removeTile={true}
         selectedTiles={selectedTiles}
         setSelectedTiles={setSelectedTiles}
-        tilesData={categoriesData}
+        tilesData={currentProfile.customTiles}
       />
     </SafeAreaView>
   );

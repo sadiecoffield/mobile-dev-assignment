@@ -1,19 +1,21 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { useProfiles } from "../contexts/ProfilesProvider";
 import StyledText from "./StyledText";
 
 export default function ProfileButton(props) {
-  const { profileName, currentProfile, onSelect } = props;
+  const { profile, selectProfile, deleteProfile } = props;
+  const { currentProfile } = useProfiles();
 
   // Determine if this profile button is currently selected
-  const isSelected = profileName === currentProfile;
+  const isSelected = profile.id === currentProfile.id;
 
   return (
     <View style={styles.button}>
       <TouchableOpacity
         style={styles.profileName}
-        onPress={() => onSelect(profileName)}
+        onPress={() => selectProfile(profile)}
       >
         <FontAwesome
           style={styles.icon}
@@ -22,13 +24,13 @@ export default function ProfileButton(props) {
           color={isSelected ? "#f2a500ff" : "#d4d4d4ff"}
         />
         <StyledText style={isSelected ? { fontWeight: 600 } : ""}>
-          {profileName}
+          {profile.name}
         </StyledText>
       </TouchableOpacity>
       {
         // Don't add delete button to "Default" profile
-        profileName !== "Default" && (
-          <TouchableOpacity>
+        profile.name !== "Default" && (
+          <TouchableOpacity onPress={() => deleteProfile(profile.id)}>
             <Ionicons name="trash" size={24} color="#f15bb5" />
           </TouchableOpacity>
         )
