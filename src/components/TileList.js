@@ -128,9 +128,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   tileToRemove: {
-    borderWidth: 3,
-    borderColor: "#535252ff",
-    opacity: 0.5,
+    opacity: 0.4,
   },
   photo: {
     width: 90,
