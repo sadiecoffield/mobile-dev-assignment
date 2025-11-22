@@ -15,6 +15,11 @@ export default function RemoveTileScreen() {
   const [selectedTiles, setSelectedTiles] = useState([]);
   const { setProfilesData, currentProfile, setCurrentProfile } = useProfiles();
 
+  // Get the custom tiles for this category
+  let categoryCustomTiles = currentProfile?.customTiles?.filter(
+    (tile) => tile.categoryName === selectedCategory
+  );
+
   // Delete tile photo from permanent storage when tile is deleted
   function deletePermanentPhoto(photo) {
     try {
@@ -116,12 +121,20 @@ export default function RemoveTileScreen() {
           setSelectedCategory={setSelectedCategory}
         />
       </View>
-      <TileList
-        categoryName={selectedCategory}
-        removeTile={true}
-        selectedTiles={selectedTiles}
-        setSelectedTiles={setSelectedTiles}
-      />
+      {categoryCustomTiles.length > 0 ? (
+        <TileList
+          categoryName={selectedCategory}
+          removeTile={true}
+          selectedTiles={selectedTiles}
+          setSelectedTiles={setSelectedTiles}
+        />
+      ) : (
+        <View style={styles.emptyMessageContainer}>
+          <StyledText style={styles.emptyMessage}>
+            No tiles to remove
+          </StyledText>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -185,5 +198,13 @@ const styles = StyleSheet.create({
   optionTextStyle: {
     color: "#535252ff",
     fontSize: 18,
+  },
+  emptyMessageContainer: {
+    flex: 1,
+    alignItems: "center",
+    marginTop: 100,
+  },
+  emptyMessage: {
+    color: "#c3c3c3ff",
   },
 });
