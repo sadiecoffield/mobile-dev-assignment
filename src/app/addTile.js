@@ -234,14 +234,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
   },
   input: {
-    backgroundColor: "#ffffff",
     width: "100%",
-    borderRadius: 8,
+    borderRadius: 10,
     fontSize: 24,
-    padding: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
     marginTop: 10,
     color: "#535252ff",
-    boxShadow: "0px 2px 6px 2px #dcdcdcff",
+    backgroundColor: "#f3f3f3ff",
   },
   addButton: {
     width: 128,

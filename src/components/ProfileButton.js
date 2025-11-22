@@ -12,7 +12,13 @@ export default function ProfileButton(props) {
   const isSelected = profile.id === currentProfile.id;
 
   return (
-    <View style={styles.button}>
+    <View
+      style={
+        isSelected
+          ? [styles.button, { backgroundColor: "#e2e2e2ff" }]
+          : styles.button
+      }
+    >
       <TouchableOpacity
         style={styles.profileName}
         onPress={() => selectProfile(profile)}
@@ -31,7 +37,7 @@ export default function ProfileButton(props) {
         // Don't add delete button to "Default" profile
         profile.name !== "Default" && (
           <TouchableOpacity onPress={() => deleteProfile(profile.id)}>
-            <Ionicons name="trash" size={24} color="#f15bb5" />
+            <Ionicons name="trash" size={26} color="#f15bb5" />
           </TouchableOpacity>
         )
       }
@@ -43,10 +49,13 @@ const styles = StyleSheet.create({
   button: {
     width: "100%",
     paddingHorizontal: 15,
-    marginTop: 24,
+    marginTop: 6,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingVertical: 12,
+    borderRadius: 10,
+    backgroundColor: "#f3f3f3ff",
   },
   icon: {
     marginRight: 10,
@@ -54,5 +63,6 @@ const styles = StyleSheet.create({
   profileName: {
     flexDirection: "row",
     alignItems: "center",
+    flex: 1,
   },
 });

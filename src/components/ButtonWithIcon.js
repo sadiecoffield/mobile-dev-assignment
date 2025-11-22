@@ -14,10 +14,15 @@ export default function ButtonWithIcon(props) {
 
 const styles = StyleSheet.create({
   button: {
+    width: "100%",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 24,
+    marginTop: 6,
+    backgroundColor: "#f4f4f4ff",
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    borderRadius: 10,
   },
   icon: {
     marginRight: 10,

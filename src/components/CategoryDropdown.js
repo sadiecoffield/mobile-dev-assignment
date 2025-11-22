@@ -33,13 +33,13 @@ export default function CategoryDropdown(props) {
 const styles = StyleSheet.create({
   dropdown: {
     width: "100%",
-    height: 50,
-    borderRadius: 8,
-    padding: 10,
+    height: 55,
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
     marginTop: 10,
     marginBottom: 24,
-    backgroundColor: "#ffffff",
-    boxShadow: "0px 2px 6px 2px #dcdcdcff",
+    backgroundColor: "#f3f3f3ff",
   },
   placeholderStyle: {
     color: "#c5c5c5ff",

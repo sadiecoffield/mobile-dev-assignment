@@ -138,12 +138,13 @@ export default function Tab() {
             text="Remove tile"
             onPress={() => router.navigate("/removeTile")}
           />
+          <ButtonWithIcon
+            onPress={() => setModalVisible(true)}
+            icon={<Ionicons name="person-add" size={32} color="#9b5de5" />}
+            text="Add new profile"
+          />
         </View>
-        <ButtonWithIcon
-          onPress={() => setModalVisible(true)}
-          icon={<Ionicons name="person-add" size={32} color="#9b5de5" />}
-          text="Add new profile"
-        />
+
         <FlatList
           data={profilesData || []}
           renderItem={({ item }) => {
@@ -156,6 +157,7 @@ export default function Tab() {
             );
           }}
           contentContainerStyle={{ paddingTop: 10 }}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     </SafeAreaView>
@@ -179,12 +181,13 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     paddingHorizontal: 30,
     marginTop: 40,
+    overflow: "hidden",
   },
   tileSettings: {
     width: "100%",
     borderColor: "#535252ff",
-    borderBottomWidth: 1,
-    paddingBottom: 24,
+    //borderBottomWidth: 1,
+    marginBottom: 30,
   },
   profileButton: {
     paddingLeft: 15,
@@ -215,14 +218,14 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   input: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#f3f3f3ff",
     width: "100%",
-    borderRadius: 8,
+    borderRadius: 10,
     fontSize: 24,
-    padding: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
     marginTop: 10,
     color: "#535252ff",
-    boxShadow: "0px 2px 6px 2px #dcdcdcff",
   },
   errorInput: {
     boxShadow: "0px 0px 4px 2px #ee4e4eff",
