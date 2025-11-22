@@ -67,13 +67,14 @@ export default function Tab() {
           setProfilesData((prev) =>
             prev.filter((profile) => profile.id !== profileId)
           );
+
+          // Set current profile to be the "Default" profile
+          if (currentProfile.id === profileId) {
+            setCurrentProfile(profilesData[0]);
+          }
         },
       },
     ]);
-
-    if (currentProfile.id === profileId) {
-      setCurrentProfile(profilesData[0]);
-    }
   }
 
   function handleSelectProfile(profile) {
