@@ -13,7 +13,7 @@ export default function RemoveTileScreen() {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("needs");
   const [selectedTiles, setSelectedTiles] = useState([]);
-  const { currentProfile } = useProfiles();
+  const { setProfilesData, currentProfile, setCurrentProfile } = useProfiles();
 
   // Delete tile photo from permanent storage when tile is deleted
   function deletePermanentPhoto(photo) {
@@ -53,13 +53,40 @@ export default function RemoveTileScreen() {
         {
           text: "OK",
           onPress: () => {
-            // Remove selected tiles from the profile's tile array and storage
-            currentProfile.customTiles.filter((tile) => {
-              if (selectedTiles.includes(tile.id)) {
-                deletePermanentPhoto(tile.photo);
-              }
+            setProfilesData((prev) => {
+              return prev.map((profile) => {
+                // If it's the current profile
+                if (profile.name === currentProfile.name) {
+                  // Filter out the selected tiles from customTiles array
+                  const updatedTiles = profile.customTiles.filter((tile) => {
+                    // Delete tile photo permanently from deleted tile
+                    if (selectedTiles.includes(tile.id)) {
+                      deletePermanentPhoto(tile.photo);
+                    }
 
-              return !selectedTiles.includes(tile.id);
+                    return !selectedTiles.includes(tile.id);
+                  });
+
+                  // Set customTiles array to be the updated array
+                  return {
+                    ...profile,
+                    customTiles: updatedTiles,
+                  };
+                }
+
+                // If it's not the current profile, return unchanged profile object
+                return profile;
+              });
+            });
+
+            // Update the currentProfile object's custom tiles array
+            setCurrentProfile((prev) => {
+              return {
+                ...prev,
+                customTiles: prev.customTiles.filter(
+                  (tile) => !selectedTiles.includes(tile.id)
+                ),
+              };
             });
 
             setSelectedTiles([]); // Clear selection after deletion
@@ -94,7 +121,6 @@ export default function RemoveTileScreen() {
         removeTile={true}
         selectedTiles={selectedTiles}
         setSelectedTiles={setSelectedTiles}
-        tilesData={currentProfile.customTiles}
       />
     </SafeAreaView>
   );

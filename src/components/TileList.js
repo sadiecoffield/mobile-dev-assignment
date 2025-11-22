@@ -13,11 +13,8 @@ export default function TileList(props) {
   // Get the default data for that category from 'categories'
   const categoryData = categories[categoryName?.toLowerCase()] || {};
 
-  // Get all the custom tiles for the current profile
-  const customTiles = [...(currentProfile?.customTiles ?? [])];
-
   // Get the custom tiles for this category
-  const categoryCustomTiles = currentProfile?.customTiles?.filter(
+  let categoryCustomTiles = currentProfile?.customTiles?.filter(
     (tile) => tile.categoryName === categoryName
   );
 
@@ -41,9 +38,9 @@ export default function TileList(props) {
   };
 
   // If there's only one tile in the array
-  if (customTiles.length === 1) {
+  if (categoryCustomTiles.length === 1) {
     // Add placeholder to array to align single tile to the left of screen
-    customTiles = [...customTiles, { placeholder: true }];
+    categoryCustomTiles = [...categoryCustomTiles, { placeholder: true }];
   }
 
   return (
