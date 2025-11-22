@@ -145,21 +145,23 @@ export default function Tab() {
             text="Add new profile"
           />
         </View>
-
-        <FlatList
-          data={profilesData || []}
-          renderItem={({ item }) => {
-            return (
-              <ProfileButton
-                profile={item}
-                selectProfile={handleSelectProfile}
-                deleteProfile={handleDeleteProfile}
-              />
-            );
-          }}
-          contentContainerStyle={{ paddingTop: 10 }}
-          showsVerticalScrollIndicator={false}
-        />
+        <View style={styles.profileList}>
+          <StyledText style={styles.subheading}>Select Profile:</StyledText>
+          <FlatList
+            data={profilesData || []}
+            renderItem={({ item }) => {
+              return (
+                <ProfileButton
+                  profile={item}
+                  selectProfile={handleSelectProfile}
+                  deleteProfile={handleDeleteProfile}
+                />
+              );
+            }}
+            contentContainerStyle={{ paddingTop: 5 }}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -176,6 +178,10 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     marginTop: 100,
   },
+  subheading: {
+    fontWeight: 600,
+    marginTop: 24,
+  },
   optionsContainer: {
     flex: 1,
     alignSelf: "stretch",
@@ -186,9 +192,7 @@ const styles = StyleSheet.create({
   },
   tileSettings: {
     width: "100%",
-    borderColor: "#535252ff",
-    //borderBottomWidth: 1,
-    marginBottom: 30,
+    marginBottom: 24,
   },
   profileButton: {
     paddingLeft: 15,
