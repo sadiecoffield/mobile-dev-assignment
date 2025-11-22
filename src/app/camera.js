@@ -20,11 +20,16 @@ export default function CameraScreen() {
   if (!permission.granted) {
     // Camera permissions are not granted yet.
     return (
-      <View style={styles.container}>
+      <View style={styles.permissionContainer}>
         <Text style={styles.message}>
           We need your permission to show the camera
         </Text>
-        <Button onPress={requestPermission} title="grant permission" />
+        <Button
+          onPress={async () => {
+            await requestPermission();
+          }}
+          title="Grant Permission"
+        />
       </View>
     );
   }
@@ -73,6 +78,7 @@ export default function CameraScreen() {
         facing={facing}
         animateShutter={true}
         ref={cameraRef}
+        enableAudio={false}
       />
       <View style={styles.bottomBar}>
         <TouchableOpacity
@@ -122,5 +128,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "white",
+  },
+  permissionContainer: {
+    flex: 1,
+    justifyContent: "center",
   },
 });
