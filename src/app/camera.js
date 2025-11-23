@@ -30,6 +30,7 @@ export default function CameraScreen() {
           }}
           title="Grant Permission"
         />
+        <Button onPress={() => router.replace("/addTile")} title="Cancel" />
       </View>
     );
   }

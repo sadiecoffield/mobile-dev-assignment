@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { initVoice } from "../api/text-to-speech.js";
 import { ProfilesProvider } from "../contexts/ProfilesProvider.js";
 
@@ -10,14 +11,16 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <ProfilesProvider>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="[category]" options={{ headerShown: false }} />
-        <Stack.Screen name="addTile" options={{ headerShown: false }} />
-        <Stack.Screen name="removeTile" options={{ headerShown: false }} />
-        <Stack.Screen name="camera" options={{ headerShown: false }} />
-      </Stack>
-    </ProfilesProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ProfilesProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="[category]" options={{ headerShown: false }} />
+          <Stack.Screen name="addTile" options={{ headerShown: false }} />
+          <Stack.Screen name="removeTile" options={{ headerShown: false }} />
+          <Stack.Screen name="camera" options={{ headerShown: false }} />
+        </Stack>
+      </ProfilesProvider>
+    </GestureHandlerRootView>
   );
 }
