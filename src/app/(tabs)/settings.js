@@ -198,6 +198,9 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     marginTop: 24,
   },
+  profileList: {
+    width: "100%",
+  },
   centeredView: {
     flex: 1,
     alignItems: "center",
