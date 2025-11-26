@@ -23,6 +23,6 @@ This is an ios app which helps children with special needs communicate in school
    ```
 
 3. Install Expo Go from App Store
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- [Expo Go](https://expo.dev/go)
 
 4. Scan QR code in terminal to open the app in Expo Go
